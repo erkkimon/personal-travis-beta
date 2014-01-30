@@ -3,3 +3,13 @@ body
   background: black;
   color: white;
 }
+
+/* MAIN VIEW */
+
+.workoutTile
+{
+  background: yellow;
+  display: inline-block;
+  width: 48%;
+  margin: 1%;
+}
