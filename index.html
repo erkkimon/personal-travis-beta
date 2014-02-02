@@ -11,80 +11,69 @@
 </head>
 
 <body>
-  <h1 class="app-title">
+  <h4 id="sub-title">seuraava treeni</h4>
+  <h1 id="app-title">personal raineri</h1>
   <div id="first-level-view">
 		<h1 class="fg-color-white" id="app-title" data-bind="text: personalTravis"></h1>
 		<!-------------------------------------------->
 		<div class="wrap">
-			<div class="box">
+			<div class="box" onclick="printWorkout(1)">
 				<div class="box-inner">
 					<div class="tiles">
-						<a onclick="printWorkout(1)">
-							<div class="live-tile" data-mode="carousel" data-initdelay="8000" id="tile-1">
-								<div class="tile-face tile-suggested"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-1-front.png" /></div></div>
-								<div class="tile-face tile-suggested"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-1-back.png" /></div></div>
-							</div>
-						</a>
+						<div class="live-tile" data-mode="flip" data-initdelay="8000" id="tile-1">
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-1-front.png" /></div></div>
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-1-back.png" /></div></div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="box">
+			<div class="box" onclick="printWorkout(2)">
 				<div class="box-inner">
 					<div class="tiles">
-						<a href="training-2.html" class="transition">
-							<div class="live-tile" data-mode="flip" data-initdelay="8500" id="tile-2">
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-2-front.png" /></div></div>
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-2-back.png" /></div></div>
-							</div>
-						</a>
+						<div class="live-tile" data-mode="flip" data-initdelay="8500" id="tile-2">
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-2-front.png" /></div></div>
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-2-back.png" /></div></div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="box">
+			<div class="box" onclick="printWorkout(3)">
 				<div class="box-inner">
 					<div class="tiles">
-						<a href="training-3.html" class="transition">
-							<div class="live-tile" data-mode="flip" data-initdelay="9000" id="tile-3">
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-3-front.png" /></div></div>
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-3-back.png" /></div></div>
-							</div>
-						</a>
+						<div class="live-tile" data-mode="flip" data-initdelay="9000" id="tile-3">
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-3-front.png" /></div></div>
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-3-back.png" /></div></div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="box">
+			<div class="box" onclick="printWorkout(4)">
 				<div class="box-inner">
 					<div class="tiles">
-						<a href="training-4.html" class="transition">
-							<div class="live-tile" data-mode="flip" data-initdelay="9500" id="tile-4">
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-4-front.png" /></div></div>
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-4-back.png" /></div></div>
-							</div>
-						</a>
+						<div class="live-tile" data-mode="flip" data-initdelay="9500" id="tile-4">
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-4-front.png" /></div></div>
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-4-back.png" /></div></div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="box">
+			<div class="box" onclick="printWorkout(5)">
 				<div class="box-inner">
 					<div class="tiles">
-						<a href="training-5.html" class="transition">
-							<div class="live-tile" data-mode="flip" data-initdelay="10000" id="tile-5">
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-5-front.png" /></div></div>
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-5-back.png" /></div></div>
-							</div>
-						</a>
+						<div class="live-tile" data-mode="flip" data-initdelay="10000" id="tile-5">
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-5-front.png" /></div></div>
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-5-back.png" /></div></div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="box">
+			<div class="box" onclick="printWorkout(6)">
 				<div class="box-inner">
 					<div class="tiles">
-						<a href="training-6.html" class="transition">
-							<div class="live-tile" data-mode="flip" data-initdelay="10500" id="tile-6">
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-6-front.png" /></div></div>
-								<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-6-back.png" /></div></div>
-							</div>
-						</a>
+						<div class="live-tile" data-mode="flip" data-initdelay="10500" id="tile-6">
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-6-front.png" /></div></div>
+							<div class="tile-face"><div class="tile-content"><img src="img/main-menu-trainee-icons/icon-training-6-back.png" /></div></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -92,7 +81,7 @@
   </div>
   <div id="second-level-view"></div>
   
-  <script src="js/backend.js" type="text/javascript"></script>
+  <script src="js/functions.js" type="text/javascript"></script>
   <script type="text/javascript">
     $(document).ready(function() 
     {

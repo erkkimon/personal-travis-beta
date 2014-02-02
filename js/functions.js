@@ -55,9 +55,15 @@ var powerclean            = new exerciseObject("powerclean");
   
 /* PRINT VIEWS */
 
+function suggestNextWorkout()
+{
+  $("#tile-3 div").addClass("tile-suggested");
+}
+
 function initFirstLevelView()
 {
   $("#second-level-view").fadeOut();
+  suggestNextWorkout();
 }
 
 function printExercise(exerciseName)
