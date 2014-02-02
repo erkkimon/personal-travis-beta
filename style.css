@@ -43,6 +43,11 @@ body *
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
+.tools
+{
+  margin: 1%;
+}
+
 /* MAIN VIEW */
 
 .tiles
@@ -61,7 +66,7 @@ body *
 .wrap 
 {
    overflow: hidden;
-   margin: 10px;
+   margin: 1%;
 }
 
 .box 
@@ -77,10 +82,10 @@ body *
 .box-inner 
 {
    position: absolute;
-   left: 10px;
-   right: 10px;
-   top: 10px;
-   bottom: 10px;
+   left: 2%;
+   right: 2%;
+   top: 2%;
+   bottom: 2%;
    overflow: hidden;
 }
 
@@ -110,6 +115,27 @@ body *
 body.no-touch .box-inner:hover .title-box, body.touch .box-inner.touch-focus .title-box 
 {
    margin-bottom: 0;
+}
+
+.navi-icon {
+	box-shadow: 0px 0px 3px #29527b;
+	border-radius: 50%; 
+	width: 10%; 
+	margin: 1%;
+  background:#38582;
+  background-image: -o-linear-gradient(left , #29527b 0%, #014e93 100%);
+  background-image: -moz-linear-gradient(left , #29527b 0%, #014e93 100%);
+  background-image: -webkit-linear-gradient(left , #29527b 0%, #014e93 100%);
+  background-image: -ms-linear-gradient(left , #29527b 0%, #014e93 100%);
+  background-image: linear-gradient(left , #29527b 0%, #014e93 100%);
+  background-image: -webkit-gradient
+  (
+    linear,
+    left top,
+    right top,
+    color-stop(0, #29527b),
+    color-stop(1, #014e93)
+  );  
 }
 
 /* LIVE TILES */
@@ -170,17 +196,20 @@ body.no-touch .box-inner:hover .title-box, body.touch .box-inner.touch-focus .ti
 {
   font-family: "quicksand-light";
   text-transform: lowercase;
-  font-size: 36px;
+  font-size: 42px;
+  margin-left: 2%;
+  margin-top: 10px;
 }
 
 #sub-title
 {
   font-family: "quicksand-light";
   text-transform: lowercase;
-  position: absolute; 
-  right: 3%;
+  text-align: right;
+  margin-right: 4%;
   top: 0px;
-  font-size: 14px;
+  font-size: 20px;
+  float: right;
 }
 
 /* SECOND LEVEL VIEW */
