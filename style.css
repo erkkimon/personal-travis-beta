@@ -40,7 +40,7 @@ body *
       padding-bottom: 50%;
 }
 
-.boxInner 
+.box-inner 
 {
    position: absolute;
    left: 10px;
@@ -50,12 +50,12 @@ body *
    overflow: hidden;
 }
 
-.boxInner img 
+.box-inner img 
 {
    width: 100%;
 }
 
-.boxInner .titleBox 
+.box-inner .title-box 
 {
    position: absolute;
    bottom: 0;
@@ -73,66 +73,47 @@ body *
    transition: all 0.3s ease-out;
 }
 
-body.no-touch .boxInner:hover .titleBox, body.touch .boxInner.touchFocus .titleBox 
+body.no-touch .box-inner:hover .title-box, body.touch .box-inner.touch-focus .title-box 
 {
    margin-bottom: 0;
 }
 
 /* LIVE TILES */
 
-.tile-side-1
+.tile-face
 {
-    background-color: #009fb2;
+  background-color: #009fb2;
   background-image: -o-linear-gradient(left , #00839a 0%, #00a1b3 100%);
   background-image: -moz-linear-gradient(left , #00839a 0%, #00a1b3 100%);
   background-image: -webkit-linear-gradient(left , #00839a 0%, #00a1b3 100%);
   background-image: -ms-linear-gradient(left , #00839a 0%, #00a1b3 100%);
   background-image: linear-gradient(left , #00839a 0%, #00a1b3 100%);
-
-  background-image: -webkit-gradient(
-               linear,
-                left top,
-                right top,
-                color-stop(0, #00839a),
-                color-stop(1, #00a1b3)
-            );
-}
-
-.tile-side-2
-{
-    background-color: #009fb2;
-  background-image: -o-linear-gradient(left , #00839a 0%, #00a1b3 100%);
-  background-image: -moz-linear-gradient(left , #00839a 0%, #00a1b3 100%);
-  background-image: -webkit-linear-gradient(left , #00839a 0%, #00a1b3 100%);
-  background-image: -ms-linear-gradient(left , #00839a 0%, #00a1b3 100%);
-  background-image: linear-gradient(left , #00839a 0%, #00a1b3 100%);
-
-  background-image: -webkit-gradient(
-               linear,
-                left top,
-                right top,
-                color-stop(0, #00839a),
-                color-stop(1, #00a1b3)
-            );
+  background-image: -webkit-gradient
+  (
+    linear,
+		left top,
+		right top,
+		color-stop(0, #00839a),
+		color-stop(1, #00a1b3)
+	);
 }
 
 .tile-suggested
 {
-background: #8BBA30;
-//     background-image: -o-linear-gradient(left , #58bc07 0%, #72f40a 100%);
-     background-image: -o-linear-gradient(left , #58bc07 0%, #72f40a 100%);
+  background: #8BBA30;
+  background-image: -o-linear-gradient(left , #58bc07 0%, #72f40a 100%);
   background-image: -moz-linear-gradient(left , #58bc07 0%, #72f40a 100%);
   background-image: -webkit-linear-gradient(left , #58bc07 0%, #72f40a 100%);
   background-image: -ms-linear-gradient(left , #58bc07 0%, #72f40a 100%);
   background-image: linear-gradient(left , #58bc07 0%, #72f40a 100%);
-
-  background-image: -webkit-gradient(
-               linear,
-                left top,
-                right top,
-                color-stop(0, #58bc07),
-                color-stop(1, #72f40a)
-            );
+  background-image: -webkit-gradient
+  (
+	  linear,
+		left top,
+		right top,
+		color-stop(0, #58bc07),
+		color-stop(1, #72f40a)
+  );
 }
 
 .tile-content
@@ -167,7 +148,7 @@ background: #8BBA30;
 
 /* SECOND LEVEL VIEW */
 
-#secondLevelView
+#second-level-view
 {
 	z-index:1000; 
 	position:fixed; 
@@ -177,4 +158,5 @@ background: #8BBA30;
 	width:100%; 
 	background:#000;
 	display: none;
+	overflow: scroll;
 }

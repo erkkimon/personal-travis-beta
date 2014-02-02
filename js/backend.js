@@ -57,12 +57,12 @@ var powerclean            = new exerciseObject("powerclean");
 
 function initFirstLevelView()
 {
-  $("#secondLevelView").fadeOut();
+  $("#second-level-view").fadeOut();
 }
 
 function printExercise(exerciseName)
 {
-	$("#secondLevelView").append
+	$("#second-level-view").append
 	(
 		"<h1>"+exerciseName.name +"</h1>" +
 		"<span onclick='goalPlus()'>plus</span> <span>minus</span><br />" +
@@ -73,8 +73,8 @@ function printExercise(exerciseName)
 
 function printWorkout(workoutNumber)
 {
-	$("#secondLevelView").html("");
-	$("#secondLevelView").html
+	$("#second-level-view").html("");
+	$("#second-level-view").html
 	(
 	  "<span onclick='initFirstLevelView()'>exit</span>"
 	);
@@ -111,7 +111,7 @@ function printWorkout(workoutNumber)
 			printExercise(powerclean);
 			break;
 	}
-	$("#secondLevelView").fadeIn("fast");
+	$("#second-level-view").fadeIn("fast");
 }
 
 $(document).ready(function()
