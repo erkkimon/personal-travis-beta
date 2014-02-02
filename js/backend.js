@@ -1,6 +1,6 @@
 /* DECLARE DATA FETCHING FUNCTIONS */
   
-function exercise(exerciseName)
+function exerciseObject(exerciseName)
 {
 	this.name = exerciseName;
 	this.reps = 12;
@@ -27,67 +27,57 @@ function exercise(exerciseName)
 	}
 }
 
+function goalPlus()
+{
+  $("#benchpressReps").html("jee");
+}
+
 /* CREATE INSTANCES */
 
-var benchpress            = new exercise("benchpress");
-var inclinepress          = new exercise("inclinepress");
-var lyingtricepsextension = new exercise("lyingtricepsextension");
-var cablepulldown         = new exercise("cablepulldown");
-var cableseatedrow        = new exercise("cableseatedrow");
-var bicepscurl            = new exercise("bicepscurl");
-var deadlift              = new exercise("deadlift");
-var legextension          = new exercise("legextension");
-var legcurl               = new exercise("legcurl");
-var uprightrow            = new exercise("uprightrow");
-var shoulderpress         = new exercise("shoulderpress");
-var shrugs                = new exercise("shrugs");
-var bentoverrow           = new exercise("bentoverrow");
-var pecdeck               = new exercise("pecdeck");
-var hammerbicepscurl      = new exercise("hammerbicepscurl");
-var legpress              = new exercise("legpress");
-var lunge                 = new exercise("lunge");
-var powerclean            = new exercise("powerclean");
+var benchpress            = new exerciseObject("benchpress");
+var inclinepress          = new exerciseObject("inclinepress");
+var lyingtricepsextension = new exerciseObject("lyingtricepsextension");
+var cablepulldown         = new exerciseObject("cablepulldown");
+var cableseatedrow        = new exerciseObject("cableseatedrow");
+var bicepscurl            = new exerciseObject("bicepscurl");
+var deadlift              = new exerciseObject("deadlift");
+var legextension          = new exerciseObject("legextension");
+var legcurl               = new exerciseObject("legcurl");
+var uprightrow            = new exerciseObject("uprightrow");
+var shoulderpress         = new exerciseObject("shoulderpress");
+var shrugs                = new exerciseObject("shrugs");
+var bentoverrow           = new exerciseObject("bentoverrow");
+var pecdeck               = new exerciseObject("pecdeck");
+var hammerbicepscurl      = new exerciseObject("hammerbicepscurl");
+var legpress              = new exerciseObject("legpress");
+var lunge                 = new exerciseObject("lunge");
+var powerclean            = new exerciseObject("powerclean");
   
 /* PRINT VIEWS */
 
-function printMainView()
+function initFirstLevelView()
 {
-	$("#header").html
-	(
-		"<span id='placeholder'>placeholder</span> "
-	);
-	$("#content").html("");
-	$("#content").append
-	(
-		"<h1>Personal Travis</h1>" +
-		"<div class='workoutTile' onclick='printWorkout(1)'>d</div>" +
-		"<div class='workoutTile' onclick='printWorkout(2)'>d</div>" +
-		"<div class='workoutTile' onclick='printWorkout(3)'>d</div>" +
-		"<div class='workoutTile' onclick='printWorkout(4)'>d</div>" +
-		"<div class='workoutTile' onclick='printWorkout(5)'>d</div>" +
-		"<div class='workoutTile' onclick='printWorkout(6)'>d</div>"
-	);
+  $("#secondLevelView").fadeOut();
 }
 
 function printExercise(exerciseName)
 {
-	$("#content").append
+	$("#secondLevelView").append
 	(
 		"<h1>"+exerciseName.name +"</h1>" +
-		"<p>reps: " + exerciseName.reps + "x3</p>" +
+		"<span onclick='goalPlus()'>plus</span> <span>minus</span><br />" +
+		"<p id='" + exerciseName.name + "Reps'>reps: " + exerciseName.reps + "x3</p>" +
 		"<p>weight: " + exerciseName.weight + "</p>"
 	);
 }
 
 function printWorkout(workoutNumber)
 {
-	$("#header").html
+	$("#secondLevelView").html("");
+	$("#secondLevelView").html
 	(
-		"<span id='exit' onclick='printMainView()'>exit</span> " +
-		"<span id='forget'>forget</span> " +
-		"<span id='edit'>edit</span> "
+	  "<span onclick='initFirstLevelView()'>exit</span>"
 	);
-	$("#content").html("");
 	switch(workoutNumber)
 	{
 		case 1:
@@ -121,6 +111,7 @@ function printWorkout(workoutNumber)
 			printExercise(powerclean);
 			break;
 	}
+	$("#secondLevelView").fadeIn("fast");
 }
 
 $(document).ready(function()
@@ -128,6 +119,6 @@ $(document).ready(function()
 
   /* PROGRAM INIT */
     
-  printMainView();
+  initFirstLevelView();
   
 });
