@@ -89,10 +89,13 @@ function printExercise(exerciseName)
 
 function printWorkout(workoutNumber)
 {
-	$("#second-level-view").html("");
 	$("#second-level-view").html
 	(
-	  "<span onclick='initFirstLevelView()'>exit</span>"
+	  "<div class='tools'>" +
+	  "  <img class='navi-icon' src='img/navi-icons/remember.png' onclick='initFirstLevelView()' />" +
+	  "  <img class='navi-icon' src='img/navi-icons/forget.png' onclick='initFirstLevelView()' />" +
+	  "  <img class='navi-icon' src='img/navi-icons/edit.png' onclick='initFirstLevelView()' />" +
+	  "</div>"
 	);
 	switch(workoutNumber)
 	{
