@@ -1,10 +1,18 @@
 <!doctype html>
 
 <head>
+
   <script src="lib/jquery/jquery-1.10.2.min.js" type="text/javascript"></script>
   <script src="lib/metrojs/MetroJs.lt.js" type="text/javascript"></script>
+  <script src="lib/html5sql/html5sql.js" type="text/javascript"></script>
+  
+  <script src="js/db-functions.js" type="text/javascript"></script>
+  <script src="js/strings.js" type="text/javascript"></script>
+  <script src="js/ui-functions.js" type="text/javascript"></script>
+  
   <link href="lib/metrojs/MetroJs.lt.css" type="text/css" rel="stylesheet" />
   <link href="style.css" type="text/css" rel="stylesheet" />
+  
   <title>Personal Travis</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
@@ -86,13 +94,11 @@
   </div>
   <div id="second-level-view"></div>
   
-  <script src="js/functions.js" type="text/javascript"></script>
   <script type="text/javascript">
     $(document).ready(function() 
     {
       $(".live-tile").liveTile();
     });
   </script>
-  <script src="js/strings.js" type="text/javascript"></script>
   
 </body>
