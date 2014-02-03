@@ -27,11 +27,6 @@ function exerciseObject(exerciseName)
 	}
 }
 
-function goalPlus()
-{
-  $("#benchpressReps").html("jee");
-}
-
 /* CREATE INSTANCES */
 
 var benchpress            = new exerciseObject("benchpress");
@@ -57,7 +52,7 @@ var powerclean            = new exerciseObject("powerclean");
 
 function suggestNextWorkout()
 {
-  $("#tile-3 div").addClass("tile-suggested");
+  $("#tile-3 div").addClass("suggested");
 }
 
 function initFirstLevelView()
@@ -70,21 +65,31 @@ function printExercise(exerciseName)
 {
 	$("#second-level-view").append
 	(
-		"<h1>"+exerciseName.name +"</h1>" +
+		"<div style='background: orange'>" +
+		"  <div style='width: 70%; display: inline-block;'>"+exerciseName.name +"</div>" +
+		"  <div style='width: 20%; display: inline-block;'>" +
+		"    <img class='goal-adjuster' src='img/navi-icons/plus.png' onclick='goalPlus("+exerciseName.name+")'>" +
+		"    <img class='goal-adjuster' src='img/navi-icons/minus.png' onclick='goalMinus("+exerciseName.name+")'>" +
+		"  </div>" +
+		"</div>" +
 		"<div style='background: blue;'>" +
-		"  <div style='display: inline-block; width: 30%; background: yellow;'>" +
+		"  <div style='display: inline-block; width: 30%; background: purple;'>" +
+		"    <p>weight:</p>" +
 		"    <p>reps:</p>" +
-		"    <p>reps:</p>" +
+		"    <p>reached:</p>" +
 		"  </div>" +
 		"  <div style='display: inline-block; width: 30%; background: green;'>" +
-		"    <p id='" + exerciseName.name + "-weight'>" + exerciseName.weight + "</p>" +
-		"    <p id='" + exerciseName.name + "-reps'>" + exerciseName.reps + " x 3</p>" +
-		"  </div>" +
-		"  <div style='display: inline-block; width: 10%; background: red;'>" +
-		"    <span onclick='goalPlus()'>plus</span> <span>minus</span><br />" +
+		"    <p><span id='" + exerciseName.name + "-weight'>" + exerciseName.weight + "</span> kg</p>" +
+		"    <p><span id='" + exerciseName.name + "-reps'>" + exerciseName.reps + "</span> x 3</p>" +
+		"    <p><input type='checkbox'></p>" +
 		"  </div>" +
 		"</div>"
 	);
+}
+
+function goalPlus(exerciseName)
+{
+  alert(exerciseName.name);
 }
 
 function printWorkout(workoutNumber)
@@ -92,7 +97,7 @@ function printWorkout(workoutNumber)
 	$("#second-level-view").html
 	(
 	  "<div class='tools'>" +
-	  "  <img class='navi-icon' src='img/navi-icons/remember.png' onclick='initFirstLevelView()' />" +
+	  "  <img class='navi-icon suggested' src='img/navi-icons/remember.png' onclick='initFirstLevelView()' />" +
 	  "  <img class='navi-icon' src='img/navi-icons/forget.png' onclick='initFirstLevelView()' />" +
 	  "  <img class='navi-icon' src='img/navi-icons/edit.png' onclick='initFirstLevelView()' />" +
 	  "</div>"
@@ -130,7 +135,7 @@ function printWorkout(workoutNumber)
 			printExercise(powerclean);
 			break;
 	}
-	$("#second-level-view").fadeIn("fast");
+	$("#second-level-view").fadeIn("slow");
 }
 
 $(document).ready(function()
