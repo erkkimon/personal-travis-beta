@@ -71,9 +71,19 @@ function printExercise(exerciseName)
 	$("#second-level-view").append
 	(
 		"<h1>"+exerciseName.name +"</h1>" +
-		"<span onclick='goalPlus()'>plus</span> <span>minus</span><br />" +
-		"<p id='" + exerciseName.name + "Reps'>reps: " + exerciseName.reps + "x3</p>" +
-		"<p>weight: " + exerciseName.weight + "</p>"
+		"<div style='background: blue;'>" +
+		"  <div style='display: inline-block; width: 30%; background: yellow;'>" +
+		"    <p>reps:</p>" +
+		"    <p>reps:</p>" +
+		"  </div>" +
+		"  <div style='display: inline-block; width: 30%; background: green;'>" +
+		"    <p id='" + exerciseName.name + "-weight'>" + exerciseName.weight + "</p>" +
+		"    <p id='" + exerciseName.name + "-reps'>" + exerciseName.reps + " x 3</p>" +
+		"  </div>" +
+		"  <div style='display: inline-block; width: 10%; background: red;'>" +
+		"    <span onclick='goalPlus()'>plus</span> <span>minus</span><br />" +
+		"  </div>" +
+		"</div>"
 	);
 }
 
@@ -121,10 +131,6 @@ function printWorkout(workoutNumber)
 }
 
 $(document).ready(function()
-{
-
-  /* PROGRAM INIT */
-    
-  initFirstLevelView();
-  
+{   
+  initFirstLevelView(); 
 });
