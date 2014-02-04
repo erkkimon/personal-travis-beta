@@ -98,6 +98,10 @@
     $(document).ready(function() 
     {
       $(".live-tile").liveTile();
+      openTheDatabase(); 
+      createTables(); 
+      writeDefaultsToTables();
+      initFirstLevelView();
     });
   </script>
   

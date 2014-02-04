@@ -1,3 +1,7 @@
+/* VARIABLES */
+
+var editMode = false;
+
 function openTheDatabase()
 {
   html5sql.openDatabase("personalraineri", "Personal Raineri data", 3*1024*1024);
@@ -109,27 +113,28 @@ function readTableToConsole(exercise)
   );
 }
 
-//function suggestNextTraining()
-//{
-//  html5sql.process
-//  (
-//    [
-//      "SELECT * FROM app_data;",
-//    ],
-//    function(transaction, results, rowsArray)
-//    {
-//      var result = rowsArray[0].latest_training;
-//      console.log("Latest training no: "+result);
-//      var nextTrainingNo;
-//      if (result < 6) { nextTrainingNo = result + 1 } else { nextTrainingNo = 1 }
-//      $("#tile-"+nextTrainingNo+" > div").addClass("tile-suggested");
-//    },
-//    function(error, statement)
-//    {
-//      console.log(error.message+" Occured while processing: "+statement);
-//    }
-//  );
-//}
+function suggestNextWorkout()
+{
+  html5sql.process
+  (
+    [
+      "SELECT * FROM app_data;",
+    ],
+    function(transaction, results, rowsArray)
+    {
+      var result = rowsArray[0].latest_training;
+      console.log("Latest training no: "+result);
+      var nextTrainingNo;
+      if (result < 6) { nextTrainingNo = result + 1 } else { nextTrainingNo = 1 }
+      $(".live-tile > div").removeClass("suggested");
+      $("#tile-"+nextTrainingNo+" > div").addClass("suggested");
+    },
+    function(error, statement)
+    {
+      console.log(error.message+" Occured while processing: "+statement);
+    }
+  );
+}
 
 function dropTables()
 {
@@ -167,12 +172,12 @@ function dropTables()
   );
 }
 
-function saveTraining(trainingNo)
+function saveWorkoutNo(workoutNo)
 {
   html5sql.process
   (
     [
-      "UPDATE app_data SET latest_training = "+trainingNo+";",
+      "UPDATE app_data SET latest_training = "+workoutNo+";",
     ],
     function()
     {
@@ -226,22 +231,22 @@ function saveTraining(trainingNo)
 //  );
 //}
 
-//function writeNewRecord(moveName, reps, weight, exclude)
-//{
-//  if(!exclude) {exclude=0}
-//  html5sql.process
-//  (
-//    [
-//      "REPLACE INTO "+moveName+" (date, reps, weight, exclude) VALUES (strftime('%Y-%m-%d', 'now'), "+reps+", "+weight+", "+exclude+");",
-//    ],
-//    function()
-//    {
-//      console.log("Wrote new goal to "+moveName+" table.");
-//    },
-//    function(error, statement)
-//    {
-//      console.log(error.message+" Occured while processing: "+statement);
-//    }
-//  );
-//}
+function writeNewRecord(exerciseName, reps, weight, exclude)
+{
+  if(!exclude) {exclude=0}
+  html5sql.process
+  (
+    [
+      "REPLACE INTO "+exerciseName+" (date, reps, weight, exclude) VALUES (strftime('%Y-%m-%d', 'now'), "+reps+", "+weight+", "+exclude+");",
+    ],
+    function()
+    {
+      console.log("Wrote new goal to "+moveName+" table.");
+    },
+    function(error, statement)
+    {
+      console.log(error.message+" Occured while processing: "+statement);
+    }
+  );
+}
 
