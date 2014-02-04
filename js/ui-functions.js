@@ -63,8 +63,8 @@ function printExercise(exerciseName)
 		"<div style=''>" +
 		"  <div style='width: 50%; display: inline-block; font-size: 25px; margin: 5px 0px 5px 0px; '>" + exerciseName.name + "</div>" +
 		"  <div style='width: 45%; display: inline-block; text-align: right; padding-right: 3%;'>" +
-		"    <img class='goal-adjuster' src='img/navi-icons/plus.png' onclick='goalPlus(" + exerciseName.name + ")'>" +
-		"    <img class='goal-adjuster' src='img/navi-icons/minus.png' onclick='goalMinus(" + exerciseName.name + ")'>" +
+		"    <img class='goal-adjuster' src='img/navi-icons/plus.png' onclick='goalPlus(" + exerciseName.name + ", true)'>" +
+		"    <img class='goal-adjuster' src='img/navi-icons/minus.png' onclick='goalMinus(" + exerciseName.name + ", true)'>" +
 		"  </div>" +
 		"</div>" +
 		"<div style='margin-bottom: 20px; border: 1px solid #FFF; border-bottom: 0px; border-right: 0px; padding-left: 15px;'>" +
@@ -82,14 +82,58 @@ function printExercise(exerciseName)
 	);
 }
 
-/****************/
-/* YOU ARE HERE */
-/****************/
-
-function goalPlus(exerciseName)
+function goalPlus(exerciseName, updateInterface)
 {
-  alert(exerciseName.name);
-  alert(exerciseName.reps);
+  //alert(exerciseName.name);
+  //alert(exerciseName.reps);
+  var newReps;
+  var newWeight;
+  if (exerciseName.reps == 12)
+  {
+    newReps = 6;
+    newWeight = parseInt(exerciseName.weight) + parseFloat(exerciseName.interval);
+    exerciseName.updateWeight(newWeight);
+    exerciseName.updateReps(newReps);
+  }
+  else
+  {
+		newReps = exerciseName.reps + 2;
+    exerciseName.updateReps(newReps);
+  }
+  if (updateInterface)
+  {
+    $("#"+exerciseName.name+"-weight").html(newWeight);
+    $("#"+exerciseName.name+"-reps").html(newReps);
+  }
+}
+
+function goalMinus(exerciseName, updateInterface)
+{
+  //alert(exerciseName.name);
+  //alert(exerciseName.reps);
+  var newReps;
+  var newWeight;
+  if (exerciseName.reps == 6)
+  {
+    newReps = 12;
+    newWeight = parseInt(exerciseName.weight) - parseFloat(exerciseName.interval);
+    exerciseName.updateWeight(newWeight);
+    exerciseName.updateReps(newReps);
+  }
+  else if (exerciseName.weight <= 0)
+  {
+    newWeight = 0;
+  }
+  else
+  {
+		 newReps = exerciseName.reps - 2;
+    exerciseName.updateReps(newReps);
+  }
+  if (updateInterface)
+  {
+    $("#"+exerciseName.name+"-weight").html(newWeight);
+    $("#"+exerciseName.name+"-reps").html(newReps);
+  }
 }
 
 function printWorkout(workoutNo)
