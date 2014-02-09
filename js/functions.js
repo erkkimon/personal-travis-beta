@@ -110,7 +110,7 @@ function readExerciseFromDB(exerciseName)
 
 function checkLaunchCounter()
 {
-	launchCounter = parseInt(localStorage.getItem("launchCounter"));
+	launchCounter = localStorage.getItem("launchCounter");
 	if (launchCounter === null) 
 	{
 		localStorage.setItem("launchCounter", 1);
@@ -118,7 +118,7 @@ function checkLaunchCounter()
 	}
 	else
 	{
-		localStorage.setItem("launchCounter", launchCounter + 1);
+		localStorage.setItem("launchCounter", parseInt(launchCounter) + 1);
 		console.log("The launch number " + launchCounter);
 	}
 }
@@ -176,20 +176,18 @@ function getWeight(exercise)
 
 function suggestNextWorkout()
 {
-  var lastWorkout = parseInt(localStorage.getItem("lastWorkout"));
+  var lastWorkout = localStorage.getItem("lastWorkout");
   if (lastWorkout === null)
   {
     localStorage.setItem("lastWorkout", 6);
+    lastWorkout = 6;
   }
-  var thisWorkout;
+  lastWorkout = parseInt(lastWorkout);
   console.log("Last workout is " + lastWorkout);
-  if (lastWorkout > 5)
+  var thisWorkout = lastWorkout + 1;
+  if (thisWorkout > 6)
   {
     thisWorkout = 1;  
-  }
-  else
-  {
-    thisWorkout = lastWorkout + 1;
   }
   $(".live-tile > div").removeClass("suggested");
   $("#tile-" + thisWorkout + " > div").addClass("suggested");
@@ -349,4 +347,12 @@ function editWorkoutGoals()
   }
 }
 
+$(document).ready(function() 
+{
+	$(".live-tile").liveTile();
+	checkLaunchCounter();
+	initFirstLevelView();
+	createExerciseObjects();
+	//fromDatabaseToObjects();
+});
 
