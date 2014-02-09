@@ -9,7 +9,6 @@ function writeRecord(exerciseName, weight, reps, exclude)
   var currMonth = ('0'+(d.getMonth()+1)).slice(-2);
   var currYear = d.getFullYear();
   var now = currYear +"-"+ currMonth +"-"+ currDay;
-  alert(exerciseName + weight + reps + exclude);
 	db.put(exerciseName, {weight: weight, reps: reps, exclude: exclude}, now);
 }
 
@@ -205,23 +204,26 @@ function goalPlus(exerciseName, updateInterface)
   //alert(exerciseName.reps);
   var newReps;
   var newWeight;
-  if (exerciseName.reps == 12)
-  {
-    newReps = 6;
-    newWeight = parseInt(exerciseName.weight) + parseFloat(exerciseName.interval);
-    exerciseName.updateWeight(newWeight);
-    exerciseName.updateReps(newReps);
-  }
-  else
-  {
-		newReps = exerciseName.reps + 2;
-    exerciseName.updateReps(newReps);
-  }
-  if (updateInterface)
-  {
-    $("#"+exerciseName.name+"-weight").html(newWeight);
-    $("#"+exerciseName.name+"-reps").html(newReps);
-  }
+  var currentReps = parseInt(exerciseName.reps);
+  var currentWeight = parseInt(exerciseName.weight);
+  alert(interval[exerciseName]);
+//   if (exerciseName.reps == 12)
+//   {
+//     newReps = 6;
+//     newWeight = parseInt(exerciseName.weight) + parseFloat(exerciseName.interval);
+//     exerciseName.updateWeight(newWeight);
+//     exerciseName.updateReps(newReps);
+//   }
+//   else
+//   {
+// 		newReps = exerciseName.reps + 2;
+//     exerciseName.updateReps(newReps);
+//   }
+//   if (updateInterface)
+//   {
+//     $("#"+exerciseName.name+"-weight").html(newWeight);
+//     $("#"+exerciseName.name+"-reps").html(newReps);
+//   }
 }
 
 function goalMinus(exerciseName, updateInterface)
