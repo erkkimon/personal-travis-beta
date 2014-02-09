@@ -50,24 +50,49 @@ function exerciseObject(exerciseName)
 	}
 }
 
-var benchpress            = new exerciseObject("benchpress");
-var inclinepress          = new exerciseObject("inclinepress");
-var lyingtricepsextension = new exerciseObject("lyingtricepsextension");
-var cablepulldown         = new exerciseObject("cablepulldown");
-var cableseatedrow        = new exerciseObject("cableseatedrow");
-var bicepscurl            = new exerciseObject("bicepscurl");
-var deadlift              = new exerciseObject("deadlift");
-var legextension          = new exerciseObject("legextension");
-var legcurl               = new exerciseObject("legcurl");
-var uprightrow            = new exerciseObject("uprightrow");
-var shoulderpress         = new exerciseObject("shoulderpress");
-var shrugs                = new exerciseObject("shrugs");
-var bentoverrow           = new exerciseObject("bentoverrow");
-var pecdeck               = new exerciseObject("pecdeck");
-var hammerbicepscurl      = new exerciseObject("hammerbicepscurl");
-var legpress              = new exerciseObject("legpress");
-var lunge                 = new exerciseObject("lunge");
-var powerclean            = new exerciseObject("powerclean");
+function createExerciseObjects()
+{
+	var benchpress            = new exerciseObject("benchpress");
+	var inclinepress          = new exerciseObject("inclinepress");
+	var lyingtricepsextension = new exerciseObject("lyingtricepsextension");
+	var cablepulldown         = new exerciseObject("cablepulldown");
+	var cableseatedrow        = new exerciseObject("cableseatedrow");
+	var bicepscurl            = new exerciseObject("bicepscurl");
+	var deadlift              = new exerciseObject("deadlift");
+	var legextension          = new exerciseObject("legextension");
+	var legcurl               = new exerciseObject("legcurl");
+	var uprightrow            = new exerciseObject("uprightrow");
+	var shoulderpress         = new exerciseObject("shoulderpress");
+	var shrugs                = new exerciseObject("shrugs");
+	var bentoverrow           = new exerciseObject("bentoverrow");
+	var pecdeck               = new exerciseObject("pecdeck");
+	var hammerbicepscurl      = new exerciseObject("hammerbicepscurl");
+	var legpress              = new exerciseObject("legpress");
+	var lunge                 = new exerciseObject("lunge");
+	var powerclean            = new exerciseObject("powerclean");
+}
+
+function fromDatabaseToObjects()
+{
+	readExerciseFromDB(benchpress);
+	readExerciseFromDB(inclinepress);
+	readExerciseFromDB(lyingtricepsextension);
+	readExerciseFromDB(cablepulldown);
+	readExerciseFromDB(cableseatedrow);
+	readExerciseFromDB(bicepscurl);
+	readExerciseFromDB(deadlift);
+	readExerciseFromDB(legextension);
+	readExerciseFromDB(legcurl);
+	readExerciseFromDB(uprightrow);
+	readExerciseFromDB(shoulderpress);
+	readExerciseFromDB(shrugs);
+	readExerciseFromDB(bentoverrow);
+	readExerciseFromDB(pecdeck);
+	readExerciseFromDB(hammerbicepscurl);
+	readExerciseFromDB(legpress);
+	readExerciseFromDB(lunge);
+	readExerciseFromDB(powerclean);
+}
 
 function readExerciseFromDB(exerciseName)
 {
@@ -323,3 +348,5 @@ function editWorkoutGoals()
     $("#remember").addClass("suggested");
   }
 }
+
+
