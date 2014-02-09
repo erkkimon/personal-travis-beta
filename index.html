@@ -23,9 +23,9 @@
     <img class="navi-icon" src="img/navi-icons/stats.png" />
     <img class="navi-icon" src="img/navi-icons/settings.png" />
     <img class="navi-icon" src="img/navi-icons/help.png" />
-    <span class="sub-title">next workout</span>
+    <span class="sub-title"><script>document.write(string.nextWorkout);</script></span>
   </div>
-  <p class="app-title">personal travis</p>
+  <p class="app-title"><script>document.write(string.personalTravis);</script></p>
   <div id="first-level-view">
 		<!-------------------------------------------->
 		<div class="wrap">
@@ -97,9 +97,7 @@
     $(document).ready(function() 
     {
       $(".live-tile").liveTile();
-      //openDatabase(); 
-      //writeDefaults(); 
-      //writeDefaultsToTables();
+      checkLaunchCounter();
       initFirstLevelView();
     });
   </script>

@@ -1,6 +1,102 @@
-// CREATE AND INITIALIZE DATABASE
-
+var editMode = false;
 var db = new ydn.db.Storage('personal-travis-db');
+
+var interval = 
+{
+  benchpress: 5, // penkkipunnerrus
+  inclinepress: 10, // vinopenkkipunnerrus
+  lyingtricepsextension: 2.5, // ranskalainen punnerrus
+  cablepulldown: 5, // ylätalja
+  cableseatedrow: 5, // alatalja
+  bicepscurl: 1, // hauiskääntö
+  deadlift: 5, // maastaveto
+  legextension: 5, // jalanojennus
+  legcurl: 5, // jalankoukistus
+  uprightrow: 5, // pystysoutu
+  shoulderpress: 5, // pystypunnerrus
+  shrugs: 2.5, // olankohautus
+  bentoverrow: 2.5, // kulmasoutu
+  pecdeck: 5, // rintarutistus
+  hammerbicepscurl: 1, // vasarakääntö
+  legpress: 10, // jalkaprässi
+  lunge: 10, // askelkyykky
+  powerclean: 5 // rinnalleveto
+}
+
+function exerciseObject(exerciseName)
+{
+	this.name = exerciseName;
+	this.reps = 0;
+	this.weight = 0;
+	this.reached = false;
+	this.interval = interval[exerciseName];
+	
+	this.updateReps = updateReps;
+	function updateReps(reps)
+	{
+		this.reps = reps;
+	}
+	
+	this.updateWeight = updateWeight;
+	function updateWeight(weight)
+	{
+		this.weight = weight;
+	}
+	
+	this.updateReached = updateReached;
+	function updateReached(boolean)
+	{
+		this.reached = reached;
+	}
+}
+
+var benchpress            = new exerciseObject("benchpress");
+var inclinepress          = new exerciseObject("inclinepress");
+var lyingtricepsextension = new exerciseObject("lyingtricepsextension");
+var cablepulldown         = new exerciseObject("cablepulldown");
+var cableseatedrow        = new exerciseObject("cableseatedrow");
+var bicepscurl            = new exerciseObject("bicepscurl");
+var deadlift              = new exerciseObject("deadlift");
+var legextension          = new exerciseObject("legextension");
+var legcurl               = new exerciseObject("legcurl");
+var uprightrow            = new exerciseObject("uprightrow");
+var shoulderpress         = new exerciseObject("shoulderpress");
+var shrugs                = new exerciseObject("shrugs");
+var bentoverrow           = new exerciseObject("bentoverrow");
+var pecdeck               = new exerciseObject("pecdeck");
+var hammerbicepscurl      = new exerciseObject("hammerbicepscurl");
+var legpress              = new exerciseObject("legpress");
+var lunge                 = new exerciseObject("lunge");
+var powerclean            = new exerciseObject("powerclean");
+
+function readExerciseFromDB(exerciseName)
+{
+  var currentReps = 200;
+  var currentWeight = 200;
+	db.from(exerciseName.name).list().done(function(records) 
+	{
+		exerciseName.updateReps(records[(records.length - 1)].reps);
+	});
+	db.from(exerciseName.name).list().done(function(records) 
+	{
+		exerciseName.updateWeight(records[(records.length - 1)].weight);
+	});
+}
+
+function checkLaunchCounter()
+{
+	launchCounter = parseInt(localStorage.getItem("launchCounter"));
+	if (launchCounter === null) 
+	{
+		localStorage.setItem("launchCounter", 1);
+		console.log("The first launch");
+	}
+	else
+	{
+		localStorage.setItem("launchCounter", launchCounter + 1);
+		console.log("The launch number " + launchCounter);
+	}
+}
 
 function writeRecord(exerciseName, weight, reps, exclude)
 {
@@ -45,14 +141,6 @@ function writeDefaultData()
 	writeRecord("powerclean", 25, 10, true);
 }
 
-function getReps(exercise)
-{
-	db.from(exercise).list().done(function(records) 
-	{
-		console.log(records[(records.length - 1)].reps);
-	});
-}
-
 function getWeight(exercise)
 {
 	db.from(exercise).list().done(function(records) 
@@ -61,115 +149,30 @@ function getWeight(exercise)
 	});
 }
 
-function checkLaunchCounter()
+function suggestNextWorkout()
 {
-	launchCounter = parseInt(localStorage.getItem("launchCounter"));
-	if (launchCounter === null) 
-	{
-		localStorage.setItem("launchCounter", 1);
-		localStorage.setItem("lastWorkout", 6);
-		console.log("The first launch");
-	}
-	else
-	{
-		localStorage.setItem("launchCounter", launchCounter + 1);
-		console.log("The launch number " + launchCounter);
-	}
+  var lastWorkout = parseInt(localStorage.getItem("lastWorkout"));
+  if (lastWorkout === null)
+  {
+    localStorage.setItem("lastWorkout", 6);
+  }
+  var thisWorkout;
+  console.log("Last workout is " + lastWorkout);
+  if (lastWorkout > 5)
+  {
+    thisWorkout = 1;  
+  }
+  else
+  {
+    thisWorkout = lastWorkout + 1;
+  }
+  $(".live-tile > div").removeClass("suggested");
+  $("#tile-" + thisWorkout + " > div").addClass("suggested");
 }
-
-// suggestNextWorkout()
-// {
-//   var lastWorkout = parseInt(localStorage.setItem("lastWorkout"));
-//   if (lastWorkout == 6)
-//   {
-//     // lisää suggested tiiliin 1
-//   }
-//   else
-//   {
-//     var nextWorkout = lastWorkout + 1;
-//     // lisää suggested tiiliin nextWorkout
-//   }
-// }
-
-/* INTERVALS */
-
-var interval = 
-{
-  benchpress: 5, // penkkipunnerrus
-  inclinepress: 10, // vinopenkkipunnerrus
-  lyingtricepsextension: 2.5, // ranskalainen punnerrus
-  cablepulldown: 5, // ylätalja
-  cableseatedrow: 5, // alatalja
-  bicepscurl: 1, // hauiskääntö
-  deadlift: 5, // maastaveto
-  legextension: 5, // jalanojennus
-  legcurl: 5, // jalankoukistus
-  uprightrow: 5, // pystysoutu
-  shoulderpress: 5, // pystypunnerrus
-  shrugs: 2.5, // olankohautus
-  bentoverrow: 2.5, // kulmasoutu
-  pecdeck: 5, // rintarutistus
-  hammerbicepscurl: 1, // vasarakääntö
-  legpress: 10, // jalkaprässi
-  lunge: 10, // askelkyykky
-  powerclean: 5 // rinnalleveto
-}
-
-/* DECLARE DATA FETCHING FUNCTIONS */
-  
-function exerciseObject(exerciseName)
-{
-	this.name = exerciseName;
-	this.reps = 0;
-	this.weight = 0;
-	this.reached = false;
-	
-	this.updateReps = updateReps;
-	function updateReps(reps)
-	{
-		this.reps = reps;
-	}
-	
-	this.updateWeight = updateWeight;
-	function updateWeight(weight)
-	{
-		this.weight = weight;
-	}
-	
-	this.updateReached = updateReached;
-	function updateReached(boolean)
-	{
-		this.reached = reached;
-	}
-}
-
-/* CREATE INSTANCES */
-
-var benchpress            = new exerciseObject("benchpress");
-var inclinepress          = new exerciseObject("inclinepress");
-var lyingtricepsextension = new exerciseObject("lyingtricepsextension");
-var cablepulldown         = new exerciseObject("cablepulldown");
-var cableseatedrow        = new exerciseObject("cableseatedrow");
-var bicepscurl            = new exerciseObject("bicepscurl");
-var deadlift              = new exerciseObject("deadlift");
-var legextension          = new exerciseObject("legextension");
-var legcurl               = new exerciseObject("legcurl");
-var uprightrow            = new exerciseObject("uprightrow");
-var shoulderpress         = new exerciseObject("shoulderpress");
-var shrugs                = new exerciseObject("shrugs");
-var bentoverrow           = new exerciseObject("bentoverrow");
-var pecdeck               = new exerciseObject("pecdeck");
-var hammerbicepscurl      = new exerciseObject("hammerbicepscurl");
-var legpress              = new exerciseObject("legpress");
-var lunge                 = new exerciseObject("lunge");
-var powerclean            = new exerciseObject("powerclean");
-  
-/* PRINT VIEWS */
 
 function initFirstLevelView()
 {
   $("#second-level-view").fadeOut();
-  //suggestNextWorkout();
 }
 
 function printExercise(exerciseName)
@@ -177,7 +180,7 @@ function printExercise(exerciseName)
 	$("#second-level-view").append
 	(
 		"<div style=''>" +
-		"  <div style='width: 50%; display: inline-block; font-size: 25px; margin: 5px 0px 5px 0px; '>" + exerciseName.name + "</div>" +
+		"  <div style='width: 50%; display: inline-block; font-size: 25px; margin: 5px 0px 5px 0px; '>" + string[exerciseName.name] + "</div>" +
 		"  <div style='width: 45%; display: inline-block; text-align: right; padding-right: 3%;'>" +
 		"    <img class='goal-adjuster' src='img/navi-icons/plus.png' onclick='goalPlus(" + exerciseName.name + ", true)'>" +
 		"    <img class='goal-adjuster' src='img/navi-icons/minus.png' onclick='goalMinus(" + exerciseName.name + ", true)'>" +
@@ -185,9 +188,9 @@ function printExercise(exerciseName)
 		"</div>" +
 		"<div style='margin-bottom: 20px; border: 1px solid #FFF; border-bottom: 0px; border-right: 0px; padding-left: 15px;'>" +
 		"  <div style='display: inline-block; width: 40%; margin: 0px; padding: 0px;'>" +
-		"    <p>weight:</p>" +
-		"    <p>reps:</p>" +
-		"    <p>reached:</p>" +
+		"    <p>" + string.weight + ":</p>" +
+		"    <p>" + string.reps + ":</p>" +
+		"    <p>" + string.reached + ":</p>" +
 		"  </div>" +
 		"  <div style='display: inline-block; width: 30%; margin: 0px;'>" +
 		"    <p><span id='" + exerciseName.name + "-weight'>" + exerciseName.weight + "</span> kg</p>" +
@@ -200,30 +203,27 @@ function printExercise(exerciseName)
 
 function goalPlus(exerciseName, updateInterface)
 {
-  //alert(exerciseName.name);
-  //alert(exerciseName.reps);
   var newReps;
   var newWeight;
   var currentReps = parseInt(exerciseName.reps);
   var currentWeight = parseInt(exerciseName.weight);
-  alert(interval[exerciseName]);
-//   if (exerciseName.reps == 12)
-//   {
-//     newReps = 6;
-//     newWeight = parseInt(exerciseName.weight) + parseFloat(exerciseName.interval);
-//     exerciseName.updateWeight(newWeight);
-//     exerciseName.updateReps(newReps);
-//   }
-//   else
-//   {
-// 		newReps = exerciseName.reps + 2;
-//     exerciseName.updateReps(newReps);
-//   }
-//   if (updateInterface)
-//   {
-//     $("#"+exerciseName.name+"-weight").html(newWeight);
-//     $("#"+exerciseName.name+"-reps").html(newReps);
-//   }
+  if (exerciseName.reps == 12)
+  {
+    newReps = 6;
+    newWeight = parseInt(exerciseName.weight) + parseFloat(exerciseName.interval);
+    exerciseName.updateWeight(newWeight);
+    exerciseName.updateReps(newReps);
+  }
+  else
+  {
+		newReps = exerciseName.reps + 2;
+    exerciseName.updateReps(newReps);
+  }
+  if (updateInterface)
+  {
+    $("#"+exerciseName.name+"-weight").html(newWeight);
+    $("#"+exerciseName.name+"-reps").html(newReps);
+  }
 }
 
 function goalMinus(exerciseName, updateInterface)
@@ -263,7 +263,7 @@ function printWorkout(workoutNo)
 	  "  <img class='navi-icon suggested' id='remember' src='img/navi-icons/remember.png' onclick='rememberWorkout(" + workoutNo + ")' />" +
 	  "  <img class='navi-icon' id='forget' src='img/navi-icons/forget.png' onclick='initFirstLevelView()' />" +
 	  "  <img class='navi-icon' id='edit' src='img/navi-icons/edit.png' onclick='editWorkoutGoals()' />" +
-	  "  <span class='sub-title'>goals</span>" +
+	  "  <span class='sub-title'>" + string.goals + "</span>" +
 	  "</div>"
 	);
 	switch(workoutNo)
@@ -323,8 +323,3 @@ function editWorkoutGoals()
     $("#remember").addClass("suggested");
   }
 }
-
-$(document).ready(function()
-{   
-  initFirstLevelView(); 
-});

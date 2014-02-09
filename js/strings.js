@@ -31,6 +31,8 @@ if (!lang && navigator)
 	lang = lang.substr(0, 2);
 }
 
+lang = "fi";
+
 var string;
 
 if (lang == "fi") /* FINNISH */
@@ -73,7 +75,7 @@ if (lang == "fi") /* FINNISH */
 		goals: "haasteet",
 		reps: "toistot",
 		weight: "paino",
-		achieved: "saavutettu"
+		reached: "saavutettu"
 	}
 }
 else /* ENGLISH */
@@ -116,6 +118,6 @@ else /* ENGLISH */
 		goals: "goals",
 		reps: "reps",
 		weight: "weight",
-		achieved: "achieved"
+		reached: "achieved"
 	}
 }
