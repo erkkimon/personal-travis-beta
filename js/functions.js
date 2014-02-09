@@ -1,3 +1,7 @@
+///////////////
+// VARIABLES //
+///////////////
+
 var editMode = false;
 var db = new ydn.db.Storage('personal-travis-db');
 
@@ -86,6 +90,41 @@ var exercises =
   powerclean              // rinnalleveto
 ]
 
+///////////////
+// FUNCTIONS //
+///////////////
+
+function checkLaunchCounter()
+{
+	launchCounter = localStorage.getItem("launchCounter");
+	if (launchCounter === null) 
+	{
+		localStorage.setItem("launchCounter", 1);
+		console.log("The first launch");
+	}
+	else
+	{
+		localStorage.setItem("launchCounter", parseInt(launchCounter) + 1);
+		console.log("The launch number " + launchCounter);
+	}
+}
+
+function editWorkoutGoals()
+{
+  if (editMode == false)
+  {
+    editMode = true;
+    $("#edit, .goal-adjuster").addClass("suggested");
+    $("#remember").removeClass("suggested");
+  }
+  else if (editMode == true)
+  {
+    editMode = false;
+    $("#edit, .goal-adjuster").removeClass("suggested");
+    $("#remember").addClass("suggested");
+  }
+}
+
 function exerciseObject(exerciseName)
 {
 	this.name = exerciseName;
@@ -113,15 +152,6 @@ function exerciseObject(exerciseName)
 	}
 }
 
-function readExerciseFromDB(exerciseName)
-{
-	db.from(exerciseName.name).list().done(function(records) 
-	{
-		exerciseName.updateReps(records[(records.length - 1)].reps);
-		exerciseName.updateWeight(records[(records.length - 1)].weight);
-	});
-}
-
 function fromDatabaseToObjects()
 {
 	readExerciseFromDB(benchpress);
@@ -144,124 +174,12 @@ function fromDatabaseToObjects()
 	readExerciseFromDB(powerclean);
 }
 
-function checkLaunchCounter()
-{
-	launchCounter = localStorage.getItem("launchCounter");
-	if (launchCounter === null) 
-	{
-		localStorage.setItem("launchCounter", 1);
-		console.log("The first launch");
-	}
-	else
-	{
-		localStorage.setItem("launchCounter", parseInt(launchCounter) + 1);
-		console.log("The launch number " + launchCounter);
-	}
-}
-
-function writeRecord(exerciseName, weight, reps, exclude)
-{
-  var d = new Date();
-  var currDay = ('0'+(d.getDate())).slice(-2);
-  var currMonth = ('0'+(d.getMonth()+1)).slice(-2);
-  var currYear = d.getFullYear();
-  var now = currYear +"-"+ currMonth +"-"+ currDay;
-	db.put(exerciseName, {weight: weight, reps: reps, exclude: exclude}, now);
-}
-
-function writeDefaultData()
-{
-	/* benchpress = pena, inclinepress = vinopena, lyingtricepsextension = ranskis */
-	writeRecord("benchpress", 30, 10, true);
-	writeRecord("inclinepress", 20, 10, true);
-	writeRecord("lyingtricepsextension", 15, 10, true);
-	
-	/* cablepulldown = ylätalja, cableseatedrow = alatalja, bicepscurl = hauiskääntö */
-	writeRecord("cablepulldown", 20, 10, true);
-	writeRecord("cableseatedrow", 20, 10, true);
-	writeRecord("bicepscurl", 4, 10, true);
-	
-	/* deadlift = maastoveto, legextension = jalanojennus, legcurl = jalankoukistus */
-	writeRecord("deadlift", 30, 10, true);
-	writeRecord("legextension", 10, 10, true);
-	writeRecord("legcurl", 10, 10, true);
-	
-	/* uprightrow = pystysoutu, shoulderpress = pystypunnerrus, shrugs = olankohautus */
-	writeRecord("uprightrow", 20, 10, true);
-	writeRecord("shoulderpress", 20, 10, true);
-	writeRecord("shrugs", 10, 10, true);
-	
-	/* bentoverrow = kulmasoutu, pecdeck = rintarutistus, hammerbicepscurl = vasarakääntö */
-	writeRecord("bentoverrow", 25, 10, true);
-	writeRecord("pecdeck", 20, 10, true);
-	writeRecord("hammerbicepscurl", 4, 10, true);
-	
-	/* legpress = jalkaprässi, lunge = askelkyykky, powerclean = rive */
-	writeRecord("legpress", 50, 10, true);
-	writeRecord("lunge", 20, 10, true);
-	writeRecord("powerclean", 25, 10, true);
-}
-
 function getWeight(exercise)
 {
 	db.from(exercise).list().done(function(records) 
 	{
 		console.log(records[(records.length - 1)].weight);
 	});
-}
-
-function suggestNextWorkout()
-{
-  var lastWorkout = localStorage.getItem("lastWorkout");
-  if (lastWorkout === null)
-  {
-    localStorage.setItem("lastWorkout", 6);
-    lastWorkout = 6;
-  }
-  lastWorkout = parseInt(lastWorkout);
-  console.log("Last workout is " + lastWorkout);
-  var thisWorkout = lastWorkout + 1;
-  if (thisWorkout > 6)
-  {
-    thisWorkout = 1;  
-  }
-  $(".live-tile > div").removeClass("suggested");
-  $("#tile-" + thisWorkout + " > div").addClass("suggested");
-}
-
-function initFirstLevelView()
-{
-  $("#second-level-view").fadeOut();
-    for (var i in exercises) 
-  {
-    exercises[i].updateReached(false);
-  }
-  
-}
-
-function goalPlus(exerciseName, updateInterface)
-{
-  var newReps;
-  var newWeight;
-  var currentReps = parseInt(exerciseName.reps);
-  var currentWeight = parseInt(exerciseName.weight);
-  if (exerciseName.reps == 12)
-  {
-    newReps = 6;
-    newWeight = parseFloat(exerciseName.weight) + parseFloat(exerciseName.interval);
-    exerciseName.updateWeight(newWeight);
-    exerciseName.updateReps(newReps);
-  }
-  else
-  {
-		newReps = exerciseName.reps + 2;
-    exerciseName.updateReps(newReps);
-  }
-  if (updateInterface)
-  {
-    $("#"+exerciseName.name+"-weight").html(newWeight);
-    $("#"+exerciseName.name+"-reps").html(newReps);
-  }
 }
 
 function goalMinus(exerciseName, updateInterface)
@@ -274,8 +192,6 @@ function goalMinus(exerciseName, updateInterface)
   {
     newReps = 12;
     newWeight = parseFloat(exerciseName.weight) - parseFloat(exerciseName.interval);
-    exerciseName.updateWeight(newWeight);
-    exerciseName.updateReps(newReps);
   }
   else if (exerciseName.weight <= 0)
   {
@@ -284,8 +200,9 @@ function goalMinus(exerciseName, updateInterface)
   else
   {
 		newReps = exerciseName.reps - 2;
-    exerciseName.updateReps(newReps);
   }
+  exerciseName.updateReps(newReps);
+  exerciseName.updateWeight(newWeight);
   if (updateInterface)
   {
     $("#"+exerciseName.name+"-weight").html(newWeight);
@@ -293,23 +210,38 @@ function goalMinus(exerciseName, updateInterface)
   }
 }
 
-function toggleReached(exerciseName)
+function goalPlus(exerciseName, updateInterface)
 {
-  
-  if (exerciseName.reached == false)
+  var newReps;
+  var newWeight;
+  var currentReps = parseInt(exerciseName.reps);
+  var currentWeight = parseInt(exerciseName.weight);
+  if (exerciseName.reps == 12)
   {
-    exerciseName.updateReached(true);
-    console.log(exerciseName.reached);
-    writeRecord(exerciseName.name, parseFloat(exerciseName.weight), parseFloat(exerciseName.reps), false);
+    newReps = 6;
+    newWeight = parseFloat(exerciseName.weight) + parseFloat(exerciseName.interval);
   }
   else
   {
-    exerciseName.updateReached(false);
-    console.log(exerciseName.reached);
-    goalMinus(exerciseName);
-    writeRecord(exerciseName.name, parseFloat(exerciseName.weight), parseFloat(exerciseName.reps), false);
-    goalPlus(exerciseName);
+		newReps = exerciseName.reps + 2;
   }
+  exerciseName.updateWeight(newWeight);
+  exerciseName.updateReps(newReps);
+  if (updateInterface)
+  {
+    $("#"+exerciseName.name+"-weight").html(newWeight);
+    $("#"+exerciseName.name+"-reps").html(newReps);
+  }
+}
+
+function initFirstLevelView()
+{
+  $("#second-level-view").fadeOut();
+    for (var i in exercises) 
+  {
+    exercises[i].updateReached(false);
+  }
+  suggestNextWorkout();
 }
 
 function printExercise(exerciseName)
@@ -341,10 +273,11 @@ function printExercise(exerciseName)
 
 function printWorkout(workoutNo)
 {
+	fromDatabaseToObjects();
 	$("#second-level-view").html
 	(
 	  "<div class='tools'>" +
-	  "  <img class='navi-icon suggested' id='remember' src='img/navi-icons/remember.png' onclick='rememberWorkout()' />" +
+	  "  <img class='navi-icon suggested' id='remember' src='img/navi-icons/remember.png' onclick='rememberWorkout("+ workoutNo +")' />" +
 	  "  <img class='navi-icon' id='forget' src='img/navi-icons/forget.png' onclick='initFirstLevelView()' />" +
 	  "  <img class='navi-icon' id='edit' src='img/navi-icons/edit.png' onclick='editWorkoutGoals()' />" +
 	  "  <span class='sub-title'>" + string.goals + "</span>" +
@@ -386,43 +319,120 @@ function printWorkout(workoutNo)
 	$("#second-level-view").fadeIn("slow");
 }
 
-function saveRecords()
+function readExerciseFromDB(exerciseName)
 {
-  for (var i in exercises) 
-  {
-    goalMinus(exercises[i], false);
-    writeRecord(exercises[i].name, parseFloat(exercises[i].weight), parseFloat(exercises[i].reps), true);
-    goalPlus(exercises[i], false);
-  }
+	db.from(exerciseName.name).list().done(function(records) 
+	{
+		exerciseName.updateReps(records[(records.length - 1)].reps);
+		exerciseName.updateWeight(records[(records.length - 1)].weight);
+	});
 }
 
-function rememberWorkout(exclude)
+function rememberWorkout(exerciseNo)
 {
+  localStorage.setItem("lastWorkout", parseFloat(exerciseNo));
   initFirstLevelView();
   saveRecords();
 }
 
-function editWorkoutGoals()
+function saveRecords()
 {
-  if (editMode == false)
+  for (var i in exercises) 
   {
-    editMode = true;
-    $("#edit, .goal-adjuster").addClass("suggested");
-    $("#remember").removeClass("suggested");
-  }
-  else if (editMode == true)
-  {
-    editMode = false;
-    $("#edit, .goal-adjuster").removeClass("suggested");
-    $("#remember").addClass("suggested");
+    if (exercises[i].reached == true)
+    {
+      writeRecord(exercises[i].name, parseFloat(exercises[i].weight), parseFloat(exercises[i].reps), false);
+    }
+    else
+    {
+			goalMinus(exercises[i], false);
+			writeRecord(exercises[i].name, parseFloat(exercises[i].weight), parseFloat(exercises[i].reps), true);
+    }
   }
 }
+
+function suggestNextWorkout()
+{
+  var thisWorkout;
+  var lastWorkout = localStorage.getItem("lastWorkout");
+  if (lastWorkout === null)
+  {
+    localStorage.setItem("lastWorkout", 6);
+    lastWorkout = 6;
+  }
+  thisWorkout = parseFloat(lastWorkout) + 1;
+  if (thisWorkout == 7) { thisWorkout = 1; }
+  $(".live-tile > div").removeClass("suggested");
+  $("#tile-" + thisWorkout + " > div").addClass("suggested");
+}
+
+function toggleReached(exerciseName)
+{
+  if (exerciseName.reached == false)
+  {
+    exerciseName.updateReached(true);
+    console.log(exerciseName.reached);
+  }
+  else
+  {
+    exerciseName.updateReached(false);
+    console.log(exerciseName.reached);
+  }
+}
+
+function writeDefaultData()
+{
+	/* benchpress = pena, inclinepress = vinopena, lyingtricepsextension = ranskis */
+	writeRecord("benchpress", 30, 10, true);
+	writeRecord("inclinepress", 20, 10, true);
+	writeRecord("lyingtricepsextension", 15, 10, true);
+	
+	/* cablepulldown = ylätalja, cableseatedrow = alatalja, bicepscurl = hauiskääntö */
+	writeRecord("cablepulldown", 20, 10, true);
+	writeRecord("cableseatedrow", 20, 10, true);
+	writeRecord("bicepscurl", 4, 10, true);
+	
+	/* deadlift = maastoveto, legextension = jalanojennus, legcurl = jalankoukistus */
+	writeRecord("deadlift", 30, 10, true);
+	writeRecord("legextension", 10, 10, true);
+	writeRecord("legcurl", 10, 10, true);
+	
+	/* uprightrow = pystysoutu, shoulderpress = pystypunnerrus, shrugs = olankohautus */
+	writeRecord("uprightrow", 20, 10, true);
+	writeRecord("shoulderpress", 20, 10, true);
+	writeRecord("shrugs", 10, 10, true);
+	
+	/* bentoverrow = kulmasoutu, pecdeck = rintarutistus, hammerbicepscurl = vasarakääntö */
+	writeRecord("bentoverrow", 25, 10, true);
+	writeRecord("pecdeck", 20, 10, true);
+	writeRecord("hammerbicepscurl", 4, 10, true);
+	
+	/* legpress = jalkaprässi, lunge = askelkyykky, powerclean = rive */
+	writeRecord("legpress", 50, 10, true);
+	writeRecord("lunge", 20, 10, true);
+	writeRecord("powerclean", 25, 10, true);
+}
+
+function writeRecord(exerciseName, weight, reps, exclude)
+{
+  var d = new Date();
+  var currDay = ('0'+(d.getDate())).slice(-2);
+  var currMonth = ('0'+(d.getMonth()+1)).slice(-2);
+  var currYear = d.getFullYear();
+  var now = currYear +"-"+ currMonth +"-"+ currDay;
+	db.put(exerciseName, {weight: weight, reps: reps, exclude: exclude}, now);
+}
+
+///////////////////
+// MAIN ACTIVITY //
+///////////////////
 
 $(document).ready(function() 
 {
 	$(".live-tile").liveTile();
 	checkLaunchCounter();
 	initFirstLevelView();
-	//fromDatabaseToObjects();
+	suggestNextWorkout();
+	setTimeout(function() { fromDatabaseToObjects(); }, 500);
 });
 

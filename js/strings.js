@@ -116,6 +116,6 @@ else /* ENGLISH */
 		goals: "goals",
 		reps: "reps",
 		weight: "weight",
-		reached: "achieved"
+		reached: "reached"
 	}
 }
