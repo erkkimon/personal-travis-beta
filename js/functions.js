@@ -164,58 +164,59 @@ function getWeight(exercise)
 	});
 }
 
-function goalMinus(exerciseName, updateInterface)
+function goalMinus(exerciseName)
 {
-  //alert(exerciseName.name);
-  //alert(exerciseName.reps);
-  var newReps;
-  var newWeight;
-  if (exerciseName.reps == 6)
+  var newGoal =
   {
-    newReps = 12;
-    newWeight = parseInt(exerciseName.weight) - parseFloat(exerciseName.interval);
-    exerciseName.updateWeight(newWeight);
-    exerciseName.updateReps(newReps);
+    reps: 100,
+    weight: 100
+  }
+  if (parseInt(exerciseName.reps) == 6)
+  {
+    newGoal.reps = 12;
+    newGoal.weight = exerciseName.weight - exerciseName.interval;
   }
   else if (exerciseName.weight <= 0)
   {
-    newWeight = 0;
+    newGoal.weight = 0;
+    newGoal.reps = exerciseName.reps;
   }
   else
   {
-		 newReps = exerciseName.reps - 2;
-     exerciseName.updateReps(newReps);
+    newGoal.reps = exerciseName.reps - 2;
+    newGoal.weight = exerciseName.weight;
   }
-  if (updateInterface)
-  {
-    $("#"+exerciseName.name+"-weight").html(newWeight);
-    $("#"+exerciseName.name+"-reps").html(newReps);
-  }
+  exerciseName.updateReps(newGoal.reps);
+  exerciseName.updateWeight(newGoal.weight);
+  return newGoal;
 }
 
-function goalPlus(exerciseName, updateInterface)
+function goalPlus(exerciseName)
 {
-  var newReps;
-  var newWeight;
-  var currentReps = parseInt(exerciseName.reps);
-  var currentWeight = parseInt(exerciseName.weight);
-  if (exerciseName.reps == 12)
+  var newGoal =
   {
-    newReps = 6;
-    newWeight = parseInt(exerciseName.weight) + parseFloat(exerciseName.interval);
-    exerciseName.updateWeight(newWeight);
-    exerciseName.updateReps(newReps);
+    reps: 100,
+    weight: 100
+  }
+  if (parseInt(exerciseName.reps) == 12)
+  {
+    newGoal.reps = 6;
+    newGoal.weight = exerciseName.weight + exerciseName.interval;
   }
   else
   {
-		newReps = exerciseName.reps + 2;
-    exerciseName.updateReps(newReps);
+    newGoal.reps = exerciseName.reps + 2;
+    newGoal.weight = exerciseName.weight;
   }
-  if (updateInterface)
-  {
-    $("#"+exerciseName.name+"-weight").html(newWeight);
-    $("#"+exerciseName.name+"-reps").html(newReps);
-  }
+  exerciseName.updateReps(newGoal.reps);
+  exerciseName.updateWeight(newGoal.weight);
+  return newGoal;
+}
+
+function goalToUI(exerciseName, newGoal)
+{
+  $("#"+exerciseName+"-weight").html(parseFloat(newGoal.weight));
+  $("#"+exerciseName+"-reps").html(parseInt(newGoal.reps));
 }
 
 function initFirstLevelView()
@@ -252,7 +253,7 @@ function printExercise(exerciseName)
 		"  </div>" +
 		"</div>"
 	);
-	goalPlus(exerciseName, true);
+	//goalPlus(exerciseName, true);
 }
 
 function printWorkout(workoutNo)
