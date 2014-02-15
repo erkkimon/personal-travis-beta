@@ -27,28 +27,6 @@ var interval =
   powerclean: 5
 }
 
-var interval = 
-{
-  benchpress: 5, // penkkipunnerrus
-  inclinepress: 10, // vinopenkkipunnerrus
-  lyingtricepsextension: 2.5, // ranskalainen punnerrus
-  cablepulldown: 5, // ylätalja
-  cableseatedrow: 5, // alatalja
-  bicepscurl: 1, // hauiskääntö
-  deadlift: 5, // maastaveto
-  legextension: 5, // jalanojennus
-  legcurl: 5, // jalankoukistus
-  uprightrow: 5, // pystysoutu
-  shoulderpress: 5, // pystypunnerrus
-  shrugs: 2.5, // olankohautus
-  bentoverrow: 2.5, // kulmasoutu
-  pecdeck: 5, // rintarutistus
-  hammerbicepscurl: 1, // vasarakääntö
-  legpress: 10, // jalkaprässi
-  lunge: 10, // askelkyykky
-  powerclean: 5 // rinnalleveto
-}
-
 var benchpress            = new exerciseObject("benchpress");
 var inclinepress          = new exerciseObject("inclinepress");
 var lyingtricepsextension = new exerciseObject("lyingtricepsextension");
@@ -90,6 +68,37 @@ var exercises =
   powerclean              // rinnalleveto
 ]
 
+/////////////
+// OBJECTS //
+/////////////
+
+function exerciseObject(exerciseName)
+{
+	this.name = exerciseName;
+	this.reps = 0;
+	this.weight = 0;
+	this.reached = false;
+	this.interval = interval[exerciseName];
+	
+	this.updateReps = updateReps;
+	function updateReps(reps)
+	{
+		this.reps = reps;
+	}
+	
+	this.updateWeight = updateWeight;
+	function updateWeight(weight)
+	{
+		this.weight = weight;
+	}
+	
+	this.updateReached = updateReached;
+	function updateReached(reached)
+	{
+		this.reached = reached;
+	}
+}
+
 ///////////////
 // FUNCTIONS //
 ///////////////
@@ -125,33 +134,6 @@ function editWorkoutGoals()
   }
 }
 
-function exerciseObject(exerciseName)
-{
-	this.name = exerciseName;
-	this.reps = 0;
-	this.weight = 0;
-	this.reached = false;
-	this.interval = interval[exerciseName];
-	
-	this.updateReps = updateReps;
-	function updateReps(reps)
-	{
-		this.reps = reps;
-	}
-	
-	this.updateWeight = updateWeight;
-	function updateWeight(weight)
-	{
-		this.weight = weight;
-	}
-	
-	this.updateReached = updateReached;
-	function updateReached(reached)
-	{
-		this.reached = reached;
-	}
-}
-
 function fromDatabaseToObjects()
 {
 	readExerciseFromDB(benchpress);
@@ -184,14 +166,16 @@ function getWeight(exercise)
 
 function goalMinus(exerciseName, updateInterface)
 {
+  //alert(exerciseName.name);
+  //alert(exerciseName.reps);
   var newReps;
   var newWeight;
-  var currentReps = parseInt(exerciseName.reps);
-  var currentWeight = parseInt(exerciseName.weight);
   if (exerciseName.reps == 6)
   {
     newReps = 12;
-    newWeight = parseFloat(exerciseName.weight) - parseFloat(exerciseName.interval);
+    newWeight = parseInt(exerciseName.weight) - parseFloat(exerciseName.interval);
+    exerciseName.updateWeight(newWeight);
+    exerciseName.updateReps(newReps);
   }
   else if (exerciseName.weight <= 0)
   {
@@ -199,10 +183,9 @@ function goalMinus(exerciseName, updateInterface)
   }
   else
   {
-		newReps = exerciseName.reps - 2;
+		 newReps = exerciseName.reps - 2;
+     exerciseName.updateReps(newReps);
   }
-  exerciseName.updateReps(newReps);
-  exerciseName.updateWeight(newWeight);
   if (updateInterface)
   {
     $("#"+exerciseName.name+"-weight").html(newWeight);
@@ -219,14 +202,15 @@ function goalPlus(exerciseName, updateInterface)
   if (exerciseName.reps == 12)
   {
     newReps = 6;
-    newWeight = parseFloat(exerciseName.weight) + parseFloat(exerciseName.interval);
+    newWeight = parseInt(exerciseName.weight) + parseFloat(exerciseName.interval);
+    exerciseName.updateWeight(newWeight);
+    exerciseName.updateReps(newReps);
   }
   else
   {
 		newReps = exerciseName.reps + 2;
+    exerciseName.updateReps(newReps);
   }
-  exerciseName.updateWeight(newWeight);
-  exerciseName.updateReps(newReps);
   if (updateInterface)
   {
     $("#"+exerciseName.name+"-weight").html(newWeight);
@@ -345,7 +329,6 @@ function saveRecords()
     }
     else
     {
-			goalMinus(exercises[i], false);
 			writeRecord(exercises[i].name, parseFloat(exercises[i].weight), parseFloat(exercises[i].reps), true);
     }
   }
@@ -433,6 +416,6 @@ $(document).ready(function()
 	checkLaunchCounter();
 	initFirstLevelView();
 	suggestNextWorkout();
-	setTimeout(function() { fromDatabaseToObjects(); }, 500);
+	setTimeout(function() { fromDatabaseToObjects(); }, 1500);
 });
 
