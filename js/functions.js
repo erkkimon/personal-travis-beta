@@ -232,6 +232,7 @@ function initFirstLevelView()
     exercises[i].updateReached(false);
   }
   suggestNextWorkout();
+  setTimeout(function() { fromDatabaseToObjects(); console.log("Data read from database to objects"); }, 500);
 }
 
 function printExercise(exerciseName)
@@ -339,8 +340,8 @@ function readExerciseFromDB(exerciseName)
 function rememberWorkout(exerciseNo)
 {
   localStorage.setItem("lastWorkout", parseFloat(exerciseNo));
-  initFirstLevelView();
   saveRecords();
+  initFirstLevelView();
 }
 
 function saveRecords()
@@ -349,6 +350,7 @@ function saveRecords()
   {
     if (exercises[i].reached == true)
     {
+      goalPlus(exercises[i]);
       writeRecord(exercises[i].name, parseFloat(exercises[i].weight), parseFloat(exercises[i].reps), false);
     }
     else
@@ -440,6 +442,5 @@ $(document).ready(function()
 	checkLaunchCounter();
 	initFirstLevelView();
 	suggestNextWorkout();
-	setTimeout(function() { fromDatabaseToObjects(); }, 1500);
 });
 
