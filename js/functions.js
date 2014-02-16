@@ -144,24 +144,35 @@ function editWorkoutGoals()
 
 function fromDatabaseToObjects()
 {
-	readExerciseFromDB(benchpress);
-	readExerciseFromDB(inclinepress);
-	readExerciseFromDB(lyingtricepsextension);
-	readExerciseFromDB(cablepulldown);
-	readExerciseFromDB(cableseatedrow);
-	readExerciseFromDB(bicepscurl);
-	readExerciseFromDB(deadlift);
-	readExerciseFromDB(legextension);
-	readExerciseFromDB(legcurl);
-	readExerciseFromDB(uprightrow);
-	readExerciseFromDB(shoulderpress);
-	readExerciseFromDB(shrugs);
-	readExerciseFromDB(bentoverrow);
-	readExerciseFromDB(pecdeck);
-	readExerciseFromDB(hammerbicepscurl);
-	readExerciseFromDB(legpress);
-	readExerciseFromDB(lunge);
-	readExerciseFromDB(powerclean);
+  db.onReady(function(e) 
+  {
+    if (e) 
+    {
+      if (e.target.error) 
+      {
+        console.log('Error due to: ' + e.target.error.name + ' ' + e.target.error.message);
+      }
+      throw e;
+    }
+    readExerciseFromDB(benchpress);
+    readExerciseFromDB(inclinepress);
+    readExerciseFromDB(lyingtricepsextension);
+    readExerciseFromDB(cablepulldown);
+    readExerciseFromDB(cableseatedrow);
+    readExerciseFromDB(bicepscurl);
+    readExerciseFromDB(deadlift);
+    readExerciseFromDB(legextension);
+    readExerciseFromDB(legcurl);
+    readExerciseFromDB(uprightrow);
+    readExerciseFromDB(shoulderpress);
+    readExerciseFromDB(shrugs);
+    readExerciseFromDB(bentoverrow);
+    readExerciseFromDB(pecdeck);
+    readExerciseFromDB(hammerbicepscurl);
+    readExerciseFromDB(legpress);
+    readExerciseFromDB(lunge);
+    readExerciseFromDB(powerclean);
+  });
 }
 
 function getWeight(exercise)
@@ -236,7 +247,9 @@ function initFirstLevelView()
     exercises[i].updateAdjusted(false);
   }
   suggestNextWorkout();
-  setTimeout(function() { fromDatabaseToObjects(); console.log("Data read from database to objects"); }, 500);
+  //setTimeout(function() { fromDatabaseToObjects(); console.log("Data read from database to objects"); }, 500);
+  fromDatabaseToObjects(); 
+  console.log("Data read from database to objects");
 }
 
 function printExercise(exerciseName)
