@@ -78,6 +78,7 @@ function exerciseObject(exerciseName)
 	this.reps = 0;
 	this.weight = 0;
 	this.reached = false;
+	this.adjusted = false;
 	this.interval = interval[exerciseName];
 	
 	this.updateReps = updateReps;
@@ -96,6 +97,10 @@ function exerciseObject(exerciseName)
 	function updateReached(reached)
 	{
 		this.reached = reached;
+	}
+	function updateAdjusted(adjusted)
+	{
+	  this.adjusted = adjusted;
 	}
 }
 
@@ -253,7 +258,7 @@ function printExercise(exerciseName)
 		"  </div>" +
 		"</div>"
 	);
-	//goalPlus(exerciseName, true);
+	//goalToUI(exerciseName.name, goalPlus(exerciseName));
 }
 
 function printWorkout(workoutNo)
@@ -271,31 +276,49 @@ function printWorkout(workoutNo)
 	switch(workoutNo)
 	{
 		case 1:
+		  goalPlus(benchpress);
+		  goalPlus(inclinepress);
+		  goalPlus(lyingtricepsextension);
 			printExercise(benchpress);
 			printExercise(inclinepress);
 			printExercise(lyingtricepsextension);
 			break;
 		case 2:
+		  goalPlus(cablepulldown);
+		  goalPlus(cableseatedrow);
+		  goalPlus(bicepscurl);
 			printExercise(cablepulldown);
 			printExercise(cableseatedrow);
 			printExercise(bicepscurl);
 			break;
 		case 3:
+		  goalPlus(deadlift);
+		  goalPlus(legextension);
+		  goalPlus(legcurl);
 			printExercise(deadlift);
 			printExercise(legextension);
 			printExercise(legcurl);
 			break;
 		case 4:
+		  goalPlus(uprightrow);
+		  goalPlus(shoulderpress);
+		  goalPlus(shrugs);
 			printExercise(uprightrow);
 			printExercise(shoulderpress);
 			printExercise(shrugs);
 			break;
 		case 5:
+		  goalPlus(bentoverrow);
+		  goalPlus(pecdeck);
+		  goalPlus(hammerbicepscurl);
 			printExercise(bentoverrow);
 			printExercise(pecdeck);
 			printExercise(hammerbicepscurl);
 			break;
 		case 6:
+		  goalPlus(legpress);
+		  goalPlus(lunge);
+		  goalPlus(powerclean);
 			printExercise(legpress);
 			printExercise(lunge);
 			printExercise(powerclean);
