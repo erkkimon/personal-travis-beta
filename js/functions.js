@@ -117,6 +117,7 @@ function checkLaunchCounter()
 	{
 		localStorage.setItem("launchCounter", 1);
 		console.log("The first launch");
+		writeDefaultData();
 	}
 	else
 	{
