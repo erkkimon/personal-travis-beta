@@ -98,6 +98,8 @@ function exerciseObject(exerciseName)
 	{
 		this.reached = reached;
 	}
+	
+	this.updateAdjusted = updateAdjusted;
 	function updateAdjusted(adjusted)
 	{
 	  this.adjusted = adjusted;
@@ -230,6 +232,7 @@ function initFirstLevelView()
     for (var i in exercises) 
   {
     exercises[i].updateReached(false);
+    exercises[i].updateAdjusted(false);
   }
   suggestNextWorkout();
   setTimeout(function() { fromDatabaseToObjects(); console.log("Data read from database to objects"); }, 500);
@@ -259,8 +262,8 @@ function printExercise(exerciseName)
 		"  </div>" +
 		"</div>"
 	);
-	$("#goal-plus-" + exerciseName.name).attr("onclick", "goalToUI(\'" + exerciseName.name + "\', goalPlus(" + exerciseName.name + "))");
-	$("#goal-minus-" + exerciseName.name).attr("onclick", "goalToUI(\'" + exerciseName.name + "\', goalMinus(" + exerciseName.name + "))");
+	$("#goal-plus-" + exerciseName.name).attr("onclick", "goalToUI(\'" + exerciseName.name + "\', goalPlus(" + exerciseName.name + ")); " + exerciseName.name + ".updateAdjusted(true);");
+	$("#goal-minus-" + exerciseName.name).attr("onclick", "goalToUI(\'" + exerciseName.name + "\', goalMinus(" + exerciseName.name + ")); " + exerciseName.name + ".updateAdjusted(true);");
 	//onclick='goalToUI(" + exerciseName.name + ", goalPlus(" + benchpress.name + ")\'
 	//goalToUI(exerciseName.name, goalPlus(exerciseName));
 }
@@ -351,6 +354,11 @@ function saveRecords()
 {
   for (var i in exercises) 
   {
+    if (exercises[i].adjusted == true)
+    {
+      goalMinus(exercises[i]);
+      console.log("turkanen");
+    }
     if (exercises[i].reached == true)
     {
       goalPlus(exercises[i]);
