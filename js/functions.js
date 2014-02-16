@@ -242,8 +242,8 @@ function printExercise(exerciseName)
 		"<div style=''>" +
 		"  <div style='width: 50%; display: inline-block; font-size: 25px; margin: 5px 0px 5px 0px; '>" + string[exerciseName.name] + "</div>" +
 		"  <div style='width: 45%; display: inline-block; text-align: right; padding-right: 3%;'>" +
-		"    <img class='goal-adjuster' src='img/navi-icons/plus.png' onclick='goalPlus(" + exerciseName.name + ", true)'>" +
-		"    <img class='goal-adjuster' src='img/navi-icons/minus.png' onclick='goalMinus(" + exerciseName.name + ", true)'>" +
+		"    <img class='goal-adjuster' src='img/navi-icons/plus.png' id='goal-plus-" + exerciseName.name + "'>" +
+		"    <img class='goal-adjuster' src='img/navi-icons/minus.png' id='goal-minus-" + exerciseName.name + "'>" +
 		"  </div>" +
 		"</div>" +
 		"<div style='margin-bottom: 20px; border: 1px solid #FFF; border-bottom: 0px; border-right: 0px; padding-left: 15px;'>" +
@@ -259,6 +259,9 @@ function printExercise(exerciseName)
 		"  </div>" +
 		"</div>"
 	);
+	$("#goal-plus-" + exerciseName.name).attr("onclick", "goalToUI(\'" + exerciseName.name + "\', goalPlus(" + exerciseName.name + "))");
+	$("#goal-minus-" + exerciseName.name).attr("onclick", "goalToUI(\'" + exerciseName.name + "\', goalMinus(" + exerciseName.name + "))");
+	//onclick='goalToUI(" + exerciseName.name + ", goalPlus(" + benchpress.name + ")\'
 	//goalToUI(exerciseName.name, goalPlus(exerciseName));
 }
 
