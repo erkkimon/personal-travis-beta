@@ -252,58 +252,70 @@ function initFirstLevelView()
   console.log("Data read from database to objects");
 }
 
-function printCurrentLevel()
+function printBulkEditMode()
 {
-	fromDatabaseToObjects();
-	$("#second-level-view").html
-	(
-	  "<div class='tools'>" +
-	  "  <img class='navi-icon suggested' id='remember' src='img/navi-icons/remember.png' onclick='saveLevels();' />" +
-	  "  <img class='navi-icon' id='forget' src='img/navi-icons/forget.png' onclick='initFirstLevelView()' />" +
-	  "  <span class='sub-title'>" + string.currentLevel + "</span>" +
-	  "</div>" +
-	  "<p class='app-title'>" + string.personalTravis + "</p>" +
-	  "<div style='padding: 0.5em 0px 0.5em 0px; margin: 0.5em 2% 0% 2%; font-size: 22px;' id='bulk-edit-mode-container'></div>"
-	);
-	for (var i in exercises) 
-  {
-  	var weightTarget = exercises[i].name + "-select-weight";
-  	var repsTarget = exercises[i].name + "-select-reps";
-  	var interval = exercises[i].interval;
-  	var tempReps = exercises[i].reps;
-  	var tempWeight = exercises[i].weight;
-  	$("#bulk-edit-mode-container").append
-	  (
-      "<div style='width: 100%; padding: 0px; margin: 0px; margin-bottom: 20px; font-size: 16px; line-height: 30px;'>" +
-      "  <div style='width: 50%; display: inline-block;'>" + exercises[i].name + "</div>" +
-      "  <div style='width: 45%; min-width: 11em; display: inline-block;'>" +
-      "    <select id='" + weightTarget + "' style='width: 4em;'></select>" +
-      "    <select id='" + repsTarget + "' style='width: 4em;'>" +
-      "      <option value='6'>3 x 6</option>" +
-      "      <option value='8'>3 x 8</option>" +
-      "      <option value='10'>3 x 10</option>" +
-      "      <option value='12'>3 x 12</option>" +
-      "    </select>" +
-      "  </div>" +
-      "</div>"
-	  );
-	  for(var i=0; i<30; i++)
-	  {
-	    var tempInterval = (i + 1) * interval;
-	    var inheritedTempReps = tempReps;
-	    $("#" + weightTarget).append
-	    (
-	      "<option value='" + tempInterval + "'>" + tempInterval + " kg</option>"
-	    );
-	  }
-	  for (var i in exercises) 
-    {
-      $("#" + weightTarget).val(tempWeight).change();
-      $("#" + repsTarget).val(tempReps).change();
-    }
-	}
-	$('select').uniform();
-	$("#second-level-view").fadeIn("slow");
+  $("#bulk-edit-mode-container").append
+  (
+    "<div style='width: 100%; padding: 0px; margin: 0px;'>" +
+    "  <div style='width: 30%; display: inline-block;'>" + exercises[i].name + "</div>" +
+    "  <div style='width: 30%; display: inline-block;'>" +
+    "    <select id='" + weightTarget + "' style='width: 10em;'></select>" +
+    "    <select id='" + repsTarget + "' style='width: 10em;'>" +
+    "      <option value='" + repsTarget + "-3x6'" + (tempReps > 6 ? "selected" : "") + ">3 x 6 reps</option>" +
+    "      <option value='" + repsTarget + "-3x8'" + (tempReps > 8 ? "selected" : "") + ">3 x 8 reps</option>" +
+    "      <option value='" + repsTarget + "-3x10'" + (tempReps > 10 ? "selected" : "") + ">3 x 10 reps</option>" +
+    "      <option value='" + repsTarget + "-3x12'" + (tempReps > 12 ? "selected" : "") + ">3 x 12 reps</option>" +
+    "    </select>" +
+    "  </div>" +
+    "</div>"
+  );
+// 	fromDatabaseToObjects();
+// 	$("#second-level-view").html
+// 	(
+// 	  "<div class='tools'>" +
+// 	  "  <img class='navi-icon suggested' id='remember' src='img/navi-icons/remember.png' onclick='saveRecords(); initFirstLevelView();' />" +
+// 	  "  <img class='navi-icon' id='forget' src='img/navi-icons/forget.png' onclick='initFirstLevelView()' />" +
+// 	  "  <span class='sub-title'>" + string.editMode + "</span>" +
+// 	  "</div>" +
+// 	  "<p class='app-title'>" + string.personalTravis + "</p>" +
+// 	  "<div style='padding: 0.5em 0px 0.5em 0px; margin: 0.5em 2% 0% 2%; font-size: 22px;' id='bulk-edit-mode-container'></div>"
+// 	);
+// 	for (var i in exercises) 
+//   {
+//   	var weightTarget = exercises[i].name + "-select-weight";
+//   	var repsTarget = exercises[i].name + "-select-reps";
+//   	var interval = exercises[i].interval;
+//   	var tempReps = exercises[i].reps;
+//   	var tempWeight = exercises[i].weight;
+//   	$("#bulk-edit-mode-container").append
+// 	  (
+//       "<div style='width: 100%; padding: 0px; margin: 0px;'>" +
+//       "  <div style='width: 30%; display: inline-block;'>" + exercises[i].name + "</div>" +
+//       "  <div style='width: 30%; display: inline-block;'>" +
+//       "    <select id='" + weightTarget + "' style='width: 10em;'></select>" +
+//       "    <select id='" + repsTarget + "' style='width: 10em;'>" +
+//       "      <option value='" + repsTarget + "-3x6'" + (tempReps > 6 ? "selected" : "") + ">3 x 6 reps</option>" +
+//       "      <option value='" + repsTarget + "-3x8'" + (tempReps > 8 ? "selected" : "") + ">3 x 8 reps</option>" +
+//       "      <option value='" + repsTarget + "-3x10'" + (tempReps > 10 ? "selected" : "") + ">3 x 10 reps</option>" +
+//       "      <option value='" + repsTarget + "-3x12'" + (tempReps > 12 ? "selected" : "") + ">3 x 12 reps</option>" +
+//       "    </select>" +
+//       "  </div>" +
+//       "</div>"
+// 	  );
+// 	  console.log(tempReps);
+// 	  for(var i=0; i<30; i++)
+// 	  {
+// 	    var tempInterval = (i + 1) * interval;
+// 	    var inheritedTempReps = tempReps;
+// 	    $("#" + weightTarget).append
+// 	    (
+// 	      "<option value='" + tempInterval + "'>" + tempInterval + " kg</option>"
+// 	    );
+// 	  }
+// 	}
+// 	$('select').uniform();
+// 	$("#second-level-view").fadeIn("slow");
+	
 }
 
 function printExercise(exerciseName)
@@ -418,19 +430,6 @@ function rememberWorkout(exerciseNo)
   initFirstLevelView();
 }
 
-function saveLevels()
-{
-  for (var i in exercises) 
-  {
-    var weightLevel = $("#" + exercises[i].name + "-select-weight").val();
-    exercises[i].updateWeight(parseFloat(weightLevel));
-    var repsLevel = $("#" + exercises[i].name + "-select-reps").val();
-    exercises[i].updateReps(parseInt(repsLevel));
-    writeRecord(exercises[i].name, parseFloat(exercises[i].weight), parseFloat(exercises[i].reps), false);
-  }
-  initFirstLevelView();
-}
-
 function saveRecords()
 {
   for (var i in exercises) 
@@ -438,6 +437,7 @@ function saveRecords()
     if (exercises[i].adjusted == true)
     {
       goalMinus(exercises[i]);
+      console.log("turkanen");
     }
     if (exercises[i].reached == true)
     {
@@ -529,9 +529,7 @@ function writeRecord(exerciseName, weight, reps, exclude)
 
 $(document).ready(function() 
 {
-	$(".live-tile").liveTile();
-	checkLaunchCounter();
-	initFirstLevelView();
-	suggestNextWorkout();
+	fromDatabaseToObjects();
+	printBulkEditMode();
 });
 

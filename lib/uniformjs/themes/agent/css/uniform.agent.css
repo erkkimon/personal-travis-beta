@@ -108,7 +108,7 @@ div.selector {
 div.checker {
   position: relative;
   margin-left: -8px;
-  margin-top: -10px; }
+  margin-top: -12px; }
   div.checker, div.checker span, div.checker input {
     width: 23px;
     height: 23px; }
@@ -116,7 +116,7 @@ div.checker {
     display: -moz-inline-box;
     display: inline-block;
     *display: inline;
-    zoom: 1.7;
+    zoom: 1.5;
     text-align: center;
     background-position: 0 -320px; }
     div.checker span.checked {

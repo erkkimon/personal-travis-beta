@@ -74,7 +74,7 @@ if (lang == "fi") /* FINNISH */
 		reps: "toistot",
 		weight: "paino",
 		reached: "saavutettu",
-		editMode: "tavoitteiden muokkaus"
+		currentLevel: "nykytaso"
 	}
 }
 else /* ENGLISH */
@@ -118,6 +118,6 @@ else /* ENGLISH */
 		reps: "reps",
 		weight: "weight",
 		reached: "reached",
-		editMode: "edit goals"
+		currentLevel: "current level"
 	}
 }
