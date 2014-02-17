@@ -73,7 +73,8 @@ if (lang == "fi") /* FINNISH */
 		goals: "haasteet",
 		reps: "toistot",
 		weight: "paino",
-		reached: "saavutettu"
+		reached: "saavutettu",
+		editMode: "tavoitteiden muokkaus"
 	}
 }
 else /* ENGLISH */
@@ -116,6 +117,7 @@ else /* ENGLISH */
 		goals: "goals",
 		reps: "reps",
 		weight: "weight",
-		reached: "reached"
+		reached: "reached",
+		editMode: "edit goals"
 	}
 }

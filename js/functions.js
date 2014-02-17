@@ -252,18 +252,45 @@ function initFirstLevelView()
   console.log("Data read from database to objects");
 }
 
+function printBulkEditMode()
+{
+	fromDatabaseToObjects();
+	$("#second-level-view").html
+	(
+	  "<div class='tools'>" +
+	  "  <img class='navi-icon suggested' id='remember' src='img/navi-icons/remember.png' onclick='saveRecords(); initFirstLevelView();' />" +
+	  "  <img class='navi-icon' id='forget' src='img/navi-icons/forget.png' onclick='initFirstLevelView()' />" +
+	  "  <span class='sub-title'>" + string.editMode + "</span>" +
+	  "</div>" +
+	  "<p class='app-title'>" + string.personalTravis + "</p>" +
+	  "<div style='padding: 0.5em 0px 0.5em 0px; margin: 0.5em 2% 0% 2%; font-size: 22px;'>" +
+	  "  <div style='width: 30%; background: blue; display: inline-block;'>liike</div>" +
+	  "  <div style='width: 30%; background: blue; display: inline-block;'>" +
+	  "    <select>" +
+	  "      <option value='1'>1 kg (3 x 10)</option>" +
+	  "      <option value='2'>2 kg, 3x10</option>" +
+	  "      <option value='3'>3 kg, 3x10</option>" +
+	  "    </select>" +
+	  "</div>" +
+	  "</div>"
+	);
+	$('select').uniform();
+	$("#second-level-view").fadeIn("slow");
+	
+}
+
 function printExercise(exerciseName)
 {
 	$("#second-level-view").append
 	(
-		"<div style=''>" +
+		"<div style='margin: 0% 2% 0% 2%'>" +
 		"  <div style='width: 50%; display: inline-block; font-size: 25px; margin: 5px 0px 5px 0px; '>" + string[exerciseName.name] + "</div>" +
 		"  <div style='width: 45%; display: inline-block; text-align: right; padding-right: 3%;'>" +
 		"    <img class='goal-adjuster' src='img/navi-icons/plus.png' id='goal-plus-" + exerciseName.name + "'>" +
 		"    <img class='goal-adjuster' src='img/navi-icons/minus.png' id='goal-minus-" + exerciseName.name + "'>" +
 		"  </div>" +
 		"</div>" +
-		"<div style='margin-bottom: 20px; border: 1px solid #FFF; border-bottom: 0px; border-right: 0px; padding-left: 15px;'>" +
+		"<div style='margin-bottom: 20px; border: 1px solid #FFF; border-bottom: 0px; border-right: 0px; padding-left: 15px; margin: 0.5em 2% 0% 2%'>" +
 		"  <div style='display: inline-block; width: 40%; margin: 0px; padding: 0px;'>" +
 		"    <p>" + string.weight + ":</p>" +
 		"    <p>" + string.reps + ":</p>" +
@@ -278,8 +305,6 @@ function printExercise(exerciseName)
 	);
 	$("#goal-plus-" + exerciseName.name).attr("onclick", "goalToUI(\'" + exerciseName.name + "\', goalPlus(" + exerciseName.name + ")); " + exerciseName.name + ".updateAdjusted(true);");
 	$("#goal-minus-" + exerciseName.name).attr("onclick", "goalToUI(\'" + exerciseName.name + "\', goalMinus(" + exerciseName.name + ")); " + exerciseName.name + ".updateAdjusted(true);");
-	//onclick='goalToUI(" + exerciseName.name + ", goalPlus(" + benchpress.name + ")\'
-	//goalToUI(exerciseName.name, goalPlus(exerciseName));
 }
 
 function printWorkout(workoutNo)
@@ -292,7 +317,8 @@ function printWorkout(workoutNo)
 	  "  <img class='navi-icon' id='forget' src='img/navi-icons/forget.png' onclick='initFirstLevelView()' />" +
 	  "  <img class='navi-icon' id='edit' src='img/navi-icons/edit.png' onclick='editWorkoutGoals()' />" +
 	  "  <span class='sub-title'>" + string.goals + "</span>" +
-	  "</div>"
+	  "</div>" +
+	  "<p class='app-title'>" + string.personalTravis + "</p>"
 	);
 	switch(workoutNo)
 	{
@@ -346,6 +372,7 @@ function printWorkout(workoutNo)
 			break;
 	}
 	$("#second-level-view").fadeIn("slow");
+	$('input').uniform();
 }
 
 function readExerciseFromDB(exerciseName)

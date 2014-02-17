@@ -1,0 +1,23 @@
+<!doctype html>
+</head>
+  <link rel="stylesheet" href="lib/uniformjs/themes/agent/css/uniform.agent.css" media="screen" />
+  <script src="lib/jquery/jquery-1.10.2.min.js" type="text/javascript"></script>
+  <script src="lib/uniformjs/jquery.uniform.js"></script>
+  <script type='text/javascript'>
+    $(function () {
+      $('input, select').uniform();
+    });
+</script>
+</head>
+<body bgcolor="black">
+  <div class="browser">Browser detection goes here</div>
+
+  <!-- This form posts to a request inspector to ensure variables are being sent to the server -->
+							<select>
+								<option value="agent">Agent</option>
+								<option value="aristo">Aristo</option>
+								<option value="default">Default</option>
+								<option value="jeans">Jeans</option>
+							</select>
+							<input type="checkbox">
+</body>
