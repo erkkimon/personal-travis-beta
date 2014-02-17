@@ -240,8 +240,8 @@ function goalToUI(exerciseName, newGoal)
 
 function initFirstLevelView()
 {
-  $("#second-level-view").fadeOut();
-    for (var i in exercises) 
+  $("#second-level-view").fadeOut("slow");
+  for (var i in exercises) 
   {
     exercises[i].updateReached(false);
     exercises[i].updateAdjusted(false);
@@ -262,18 +262,23 @@ function printBulkEditMode()
 	  "  <img class='navi-icon' id='forget' src='img/navi-icons/forget.png' onclick='initFirstLevelView()' />" +
 	  "  <span class='sub-title'>" + string.editMode + "</span>" +
 	  "</div>" +
-	  "<p class='app-title'>" + string.personalTravis + "</p>" +
-	  "<div style='padding: 0.5em 0px 0.5em 0px; margin: 0.5em 2% 0% 2%; font-size: 22px;'>" +
-	  "  <div style='width: 30%; background: blue; display: inline-block;'>liike</div>" +
-	  "  <div style='width: 30%; background: blue; display: inline-block;'>" +
-	  "    <select>" +
-	  "      <option value='1'>1 kg (3 x 10)</option>" +
-	  "      <option value='2'>2 kg, 3x10</option>" +
-	  "      <option value='3'>3 kg, 3x10</option>" +
-	  "    </select>" +
-	  "</div>" +
-	  "</div>"
+	  "<p class='app-title'>" + string.personalTravis + "</p>"
 	);
+	for (var i in exercises) 
+  {
+  	$("#second-level-view").append
+	  (
+      "<div style='padding: 0.5em 0px 0.5em 0px; margin: 0.5em 2% 0% 2%; font-size: 22px;'>" +
+      "  <div style='width: 30%; background: blue; display: inline-block;'>" + exercises[i].name + "</div>" +
+      "  <div style='width: 30%; background: blue; display: inline-block;'>" +
+      "    <select>" +
+      "      <option value='1'>1 kg (3 x 10)</option>" +
+      "      <option value='2'>2 kg, 3x10</option>" +
+      "      <option value='3'>3 kg, 3x10</option>" +
+      "    </select>" +
+      "</div>"
+	  );
+	}
 	$('select').uniform();
 	$("#second-level-view").fadeIn("slow");
 	
