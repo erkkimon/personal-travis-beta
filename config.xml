@@ -29,8 +29,8 @@
 
   <gap:splash src="img/splash.9.png" />
 	
-  <preference name="phonegap-version" value="3.0.0" />
-	
-  <preference name="orientation" value="portait" />
+  <preference name="phonegap-version" value="3.1.0" />
+
+  <preference name="orientation" value="portrait" />
 	
 </widget>
