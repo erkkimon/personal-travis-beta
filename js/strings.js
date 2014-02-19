@@ -31,6 +31,7 @@ if (!lang && navigator)
 	lang = lang.substr(0, 2);
 }
 
+//lang = "fi";
 var string;
 
 if (lang == "fi") /* FINNISH */

@@ -254,6 +254,7 @@ function initFirstLevelView()
 
 function printCurrentLevel()
 {
+	$("#loading").fadeIn("fast");
 	fromDatabaseToObjects();
 	$("#second-level-view").html
 	(
@@ -274,17 +275,18 @@ function printCurrentLevel()
   	var tempWeight = exercises[i].weight;
   	$("#bulk-edit-mode-container").append
 	  (
-      "<div style='width: 100%; padding: 0px; margin: 0px; margin-bottom: 20px; font-size: 16px; line-height: 30px;'>" +
-      "  <div style='width: 50%; display: inline-block;'>" + exercises[i].name + "</div>" +
-      "  <div style='width: 45%; min-width: 11em; display: inline-block;'>" +
-      "    <select id='" + weightTarget + "' style='width: 4em;'></select>" +
-      "    <select id='" + repsTarget + "' style='width: 4em;'>" +
+	    		
+      "<div style='height: 60px; width: 98%; padding: 2%; padding-left: 0px; margin: 0px; margin-bottom: 30px; font-size: 8px; border: 1px solid #FFF; border-bottom: 0px; border-left: 0px;'>" +
+      "  <div style='float: right;'>" +
+      "    <select id='" + weightTarget + "' style='width: 5em;'></select><br />" +
+      "    <select id='" + repsTarget + "' style='width: 5em;'>" +
       "      <option value='6'>3 x 6</option>" +
       "      <option value='8'>3 x 8</option>" +
       "      <option value='10'>3 x 10</option>" +
       "      <option value='12'>3 x 12</option>" +
       "    </select>" +
       "  </div>" +
+      "  <div style='width: 100%; font-size: 25px;'>" + string[exercises[i].name] + "</div>" +
       "</div>"
 	  );
 	  for(var i=0; i<30; i++)
@@ -304,6 +306,7 @@ function printCurrentLevel()
 	}
 	$('select').uniform();
 	$("#second-level-view").fadeIn("slow");
+	$("#loading").fadeOut("fast");
 }
 
 function printExercise(exerciseName)
