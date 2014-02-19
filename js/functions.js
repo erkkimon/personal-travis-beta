@@ -254,7 +254,6 @@ function initFirstLevelView()
 
 function printCurrentLevel()
 {
-	$("#loading").css("display", "inline-block");
 	fromDatabaseToObjects();
 	$("#second-level-view").html
 	(
@@ -276,10 +275,10 @@ function printCurrentLevel()
   	$("#bulk-edit-mode-container").append
 	  (
 	    		
-      "<div style='height: 60px; width: 98%; padding: 2%; padding-left: 0px; margin: 0px; margin-bottom: 30px; font-size: 8px; border: 1px solid #FFF; border-bottom: 0px; border-left: 0px;'>" +
+      "<div style='height: 60px; width: 98%; padding: 2%; padding-left: 0px; margin: 0px; margin-bottom: 30px; font-size: 6px; border: 1px solid #FFF; border-bottom: 0px; border-left: 0px;'>" +
       "  <div style='float: right;'>" +
-      "    <select id='" + weightTarget + "' style='width: 50px;'></select><br />" +
-      "    <select id='" + repsTarget + "' style='width: 50px;'>" +
+      "    <select id='" + weightTarget + "' style='width: 80px;'></select><br />" +
+      "    <select id='" + repsTarget + "' style='width: 80px;'>" +
       "      <option value='6'>3 x 6</option>" +
       "      <option value='8'>3 x 8</option>" +
       "      <option value='10'>3 x 10</option>" +
