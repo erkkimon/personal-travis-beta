@@ -39,8 +39,8 @@ if (lang == "fi") /* FINNISH */
   string =
   {
 		/* training 1 */
-		benchpress: "penkkipunnerrus",
-		inclinepress: "vinopenkkipunnerrus",
+		benchpress: "penkki&shy;punnerrus",
+		inclinepress: "vino&shy;penkki&shy;punnerrus",
 		lyingtricepsextension: "ranskalainen punnerrus",
 
 		/* training 2 */
@@ -51,11 +51,11 @@ if (lang == "fi") /* FINNISH */
 		/* training 3 */
 		deadlift: "maastaveto",
 		legextension: "jalanojennus",
-		legcurl: "jalankoukistus",
+		legcurl: "jalan&shy;koukistus",
 
 		/* training 4 */
 		uprightrow: "pystysoutu",
-		shoulderpress: "pystypunnerrus",
+		shoulderpress: "pysty&shy;punnerrus",
 		shrugs: "olankohautus",
 
 		/* training 5 */
@@ -75,7 +75,8 @@ if (lang == "fi") /* FINNISH */
 		reps: "toistot",
 		weight: "paino",
 		reached: "saavutettu",
-		currentLevel: "nykytaso"
+		currentLevel: "nykytaso",
+		currentLevelInstructions: "Palaa muokkaamaan painamalla <img src='img/navi-icons/edit.png' class='navi-icon' /> päänäkymässä."
 	}
 }
 else /* ENGLISH */
@@ -119,6 +120,7 @@ else /* ENGLISH */
 		reps: "reps",
 		weight: "weight",
 		reached: "reached",
-		currentLevel: "current level"
+		currentLevel: "current level",
+		currentLevelInstructions: "Press <img src='img/navi-icons/edit.png' class='navi-icon' /> in main view to come back."
 	}
 }

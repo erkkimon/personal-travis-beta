@@ -118,6 +118,7 @@ function checkLaunchCounter()
 		localStorage.setItem("launchCounter", 1);
 		console.log("The first launch");
 		writeDefaultData();
+		fromDatabaseToObjects();
 	}
 	else
 	{
@@ -254,7 +255,7 @@ function initFirstLevelView()
 
 function printCurrentLevel()
 {
-	fromDatabaseToObjects();
+	$('#loading').css('opacity', '1.0');
 	$("#second-level-view").html
 	(
 	  "<div class='tools'>" +
@@ -263,6 +264,7 @@ function printCurrentLevel()
 	  "  <span class='sub-title'>" + string.currentLevel + "</span>" +
 	  "</div>" +
 	  "<p class='app-title'>" + string.personalTravis + "</p>" +
+	  "<p class='currentLevelInstructions'>" + string.currentLevelInstructions + "</p>" +
 	  "<div style='padding: 0.5em 0px 0.5em 0px; margin: 0.5em 2% 0% 2%; font-size: 22px;' id='bulk-edit-mode-container'></div>"
 	);
 	for (var i in exercises) 
@@ -279,10 +281,10 @@ function printCurrentLevel()
       "  <div style='float: right;'>" +
       "    <select id='" + weightTarget + "' style='width: 80px;'></select><br />" +
       "    <select id='" + repsTarget + "' style='width: 80px;'>" +
-      "      <option value='6'>3 x 6</option>" +
-      "      <option value='8'>3 x 8</option>" +
-      "      <option value='10'>3 x 10</option>" +
-      "      <option value='12'>3 x 12</option>" +
+      "      <option value='6'>6 x 3</option>" +
+      "      <option value='8'>8 x 3</option>" +
+      "      <option value='10'>10 x 3</option>" +
+      "      <option value='12'>12 x 3</option>" +
       "    </select>" +
       "  </div>" +
       "  <div style='width: 100%; font-size: 18px;'>" + string[exercises[i].name] + "</div>" +
@@ -305,7 +307,7 @@ function printCurrentLevel()
 	}
 	$('select').uniform();
 	$("#second-level-view").fadeIn("slow");
-	$("#loading").css("opacity", "0.2");
+	$("#loading").fadeOut("fast");
 }
 
 function printExercise(exerciseName)
@@ -534,7 +536,208 @@ $(document).ready(function()
 	$(".live-tile").liveTile();
 	checkLaunchCounter();
 	initFirstLevelView();
+	if (parseInt(localStorage.getItem("launchCounter")) == 1)
+	{
+	  console.log("Let's see if there's a WebSQL DB");
+	  openWebsqlDB();
+	  setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 1000);
+	  setTimeout(function() { printCurrentLevel() }, 2000);
+	}
 	suggestNextWorkout();
-	$("#loading").css("opacity", "0.2");
+	$("#loading").fadeOut("slow");
 });
 
+////////////////////////
+// HTML5SQL FUNCTIONS //
+////////////////////////
+
+function openWebsqlDB()
+{
+  html5sql.openDatabase("personalraineri", "Personal Raineri data", 3*1024*1024);
+}
+
+function readFromWebsqlToObject(exerciseName)
+{
+  //console.log(exercises[i].name);
+  html5sql.process
+  (
+    [
+      "SELECT * FROM " + exerciseName.name + " WHERE date = (SELECT MAX(date) FROM " + exerciseName.name + ");",
+    ],
+    function(transaction, results, rowsArray)
+    {
+      var weight = rowsArray[0].weight;
+      var reps = rowsArray[0].reps;
+      exerciseName.updateWeight(weight);
+      exerciseName.updateReps(reps);
+      console.log(exerciseName.name + " weight: " + weight);
+      console.log(exerciseName.name + " reps: " + reps);
+    },
+    function(error, statement)
+    {
+      console.log(error.message+" Occured while processing: "+statement);
+    }
+  );
+}
+
+function readFromWebsqlToObjects()
+{  
+  db.onReady(function(e) 
+  {
+    if (e) 
+    {
+      if (e.target.error) 
+      {
+        console.log('Error due to: ' + e.target.error.name + ' ' + e.target.error.message);
+      }
+      throw e;
+    }
+    for (var i in exercises) 
+    {
+      readFromWebsqlToObject(exercises[i]);
+      console.log("Read " + exercises[i].name + " to a corresponding object.");
+      //console.log(exercises[i]);
+    }
+  });
+}
+
+function writeDefaultsToTables()
+{
+  html5sql.process
+  (
+    [
+      "INSERT INTO app_data (latest_training, first_launch) VALUES (6, 0);",
+      "INSERT INTO benchpress (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 25);",
+      "INSERT INTO inclinepress (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 20);",
+      "INSERT INTO lyingtricepsextension (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 10);",
+      "INSERT INTO cablepulldown (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 10);",
+      "INSERT INTO cableseatedrow (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 20);",
+      "INSERT INTO bicepscurl (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 4);",
+      "INSERT INTO deadlift (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 20);",
+      "INSERT INTO legextension (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 15);",
+      "INSERT INTO legcurl (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 10);",
+      "INSERT INTO uprightrow (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 15);",
+      "INSERT INTO shoulderpress (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 20);",
+      "INSERT INTO shrugs (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 5);",
+      "INSERT INTO bentoverrow (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 5);",
+      "INSERT INTO pecdeck (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 10);",
+      "INSERT INTO hammerbicepscurl (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 4);",
+      "INSERT INTO legpress (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 30);",
+      "INSERT INTO lunge (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 20);",
+      "INSERT INTO powerclean (date, reps, weight) VALUES (strftime('%Y-%m-%d', 'now'), 6, 20);",
+    ],
+    function()
+    {
+      console.log("Wrote the default data to the tables");
+    },
+    function(error, statement)
+    {
+      console.log(error.message+" Occured while processing: "+statement);
+    }
+  );
+}
+
+function ifWebSqlDBExists(callback)
+{
+  //console.log(exercises[i].name);
+  openWebsqlDB();
+  console.log("WebSQL DB opened.");
+  html5sql.process
+  (
+    [
+      "SELECT * FROM benchpress WHERE date = (SELECT MAX(date) FROM benchpress);",
+    ],
+    function(transaction, results, rowsArray)
+    {
+      var weight = rowsArray[0].weight;
+      if (typeof(weight) != "number") 
+      { 
+        console.log("Found benchpress, it's a number. Calling back readFromWebsqlToObjects().");
+        callback;
+      }
+    },
+    function(error, statement)
+    {
+      console.log("The database doesn't exist");
+    }
+  );
+}
+
+function dropTables()
+{
+  html5sql.process
+  (
+    [
+      "DROP TABLE IF EXISTS app_data;",
+      "DROP TABLE IF EXISTS benchpress;",
+      "DROP TABLE IF EXISTS inclinepress;",
+      "DROP TABLE IF EXISTS lyingtricepsextension;",
+      "DROP TABLE IF EXISTS cablepulldown;",
+      "DROP TABLE IF EXISTS cableseatedrow;",
+      "DROP TABLE IF EXISTS bicepscurl;",
+      "DROP TABLE IF EXISTS deadlift;",
+      "DROP TABLE IF EXISTS legextension;",
+      "DROP TABLE IF EXISTS legcurl;",
+      "DROP TABLE IF EXISTS uprightrow;",
+      "DROP TABLE IF EXISTS shoulderpress;",
+      "DROP TABLE IF EXISTS shrugs;",
+      "DROP TABLE IF EXISTS bentoverrow;",
+      "DROP TABLE IF EXISTS pecdeck;",
+      "DROP TABLE IF EXISTS hammerbicepscurl;",
+      "DROP TABLE IF EXISTS legpress;",
+      "DROP TABLE IF EXISTS lunge;",
+      "DROP TABLE IF EXISTS powerclean;",
+    ],
+    function()
+    {
+      console.log("Dropped all tables in personalraineri DB.");
+    },
+    function(error, statement)
+    {
+      console.log(error.message+" Occured while processing: "+statement);
+    }
+  );
+}
+
+function createTables()
+{
+  html5sql.process
+  (
+    [
+      /* latest training table */
+      "CREATE TABLE IF NOT EXISTS app_data (id INTEGER PRIMARY KEY AUTOINCREMENT, latest_training INTEGER, first_launch BOOLEAN DEFAULT 1);",
+      /* pena + vinopena + ranskis */
+      "CREATE TABLE IF NOT EXISTS benchpress (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS inclinepress (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS lyingtricepsextension (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      /* ylätalja + alatalja + hauiskääntö */
+      "CREATE TABLE IF NOT EXISTS cablepulldown (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS cableseatedrow (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS bicepscurl (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      /* maastoveto + jalanojennus + jalankoukistus */
+      "CREATE TABLE IF NOT EXISTS deadlift (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS legextension (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS legcurl (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      /* pystysoutu + pystypunnerrus + olankohautus */
+      "CREATE TABLE IF NOT EXISTS uprightrow (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS shoulderpress (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS shrugs (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      /* kulmasoutu + rintarutistus + vasarakääntö */
+      "CREATE TABLE IF NOT EXISTS bentoverrow (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS pecdeck (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS hammerbicepscurl (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      /* jalkaprässi + askelkyykky + rive */
+      "CREATE TABLE IF NOT EXISTS legpress (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS lunge (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+      "CREATE TABLE IF NOT EXISTS powerclean (date DATETIME PRIMARY KEY, reps INTEGER, weight INTEGER, exclude BOOLEAN DEFAULT 0);",
+    ],
+    function()
+    {
+      console.log("Created the tables of personalraineri DB.");
+    },
+    function(error, statement)
+    {
+      console.log(error.message+" Occured while processing: "+statement);
+    }
+  );
+}

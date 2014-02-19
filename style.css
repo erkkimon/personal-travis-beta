@@ -49,6 +49,22 @@ body *
   margin: 1%;
 }
 
+.currentLevelInstructions
+{
+  line-height: 25px;
+  margin: 2%;
+  font-size: 13px;
+}
+
+.currentLevelInstructions img
+{
+  margin: 0px; 
+  display: inline-block; 
+  width: 1.2em; 
+  position: relative; 
+  top: 3px
+}
+
 /* MAIN VIEW */
 
 .tiles
