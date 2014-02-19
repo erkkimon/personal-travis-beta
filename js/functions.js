@@ -305,7 +305,7 @@ function printCurrentLevel()
 	}
 	$('select').uniform();
 	$("#second-level-view").fadeIn("slow");
-	$("#loading").fadeOut("fast");
+	$("#loading").css("opacity", "0.2");
 }
 
 function printExercise(exerciseName)
@@ -535,6 +535,6 @@ $(document).ready(function()
 	checkLaunchCounter();
 	initFirstLevelView();
 	suggestNextWorkout();
-	$("#loading").fadeOut("slow");
+	$("#loading").css("opacity", "0.2");
 });
 
