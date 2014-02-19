@@ -275,7 +275,7 @@ function printCurrentLevel()
   	$("#bulk-edit-mode-container").append
 	  (
 	    		
-      "<div style='height: 60px; width: 98%; padding: 2%; padding-left: 0px; margin: 0px; margin-bottom: 30px; font-size: 6px; border: 1px solid #FFF; border-bottom: 0px; border-left: 0px;'>" +
+      "<div style='height: 60px; width: 98%; padding: 3%; padding-left: 0px; margin: 0px; margin-bottom: 30px; font-size: 6px; border: 1px solid #FFF; border-bottom: 0px; border-left: 0px;'>" +
       "  <div style='float: right;'>" +
       "    <select id='" + weightTarget + "' style='width: 80px;'></select><br />" +
       "    <select id='" + repsTarget + "' style='width: 80px;'>" +
@@ -285,7 +285,7 @@ function printCurrentLevel()
       "      <option value='12'>3 x 12</option>" +
       "    </select>" +
       "  </div>" +
-      "  <div style='width: 100%; font-size: 25px;'>" + string[exercises[i].name] + "</div>" +
+      "  <div style='width: 100%; font-size: 18px;'>" + string[exercises[i].name] + "</div>" +
       "</div>"
 	  );
 	  for(var i=0; i<30; i++)
@@ -535,5 +535,6 @@ $(document).ready(function()
 	checkLaunchCounter();
 	initFirstLevelView();
 	suggestNextWorkout();
+	$("#loading").fadeOut("slow");
 });
 
