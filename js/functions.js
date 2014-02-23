@@ -148,10 +148,10 @@ function firstLaunch()
   console.log("Let's see if there's a WebSQL DB");
   //openWebsqlDB();
 	$("#second-level-view").html("<div class=tools'><span class='sub-title' style='margin-right: 4%; margin-top: 2%;'>" + string.wait + "</span></div>");
-  alert(string.welcome);
 	$("#second-level-view").fadeIn("fast");
+  setTimeout(function() { alert(string.welcome); }, 1000);
   //setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 1000);
-  setTimeout(function() { printCurrentLevel() }, 10000);
+  setTimeout(function() { printCurrentLevel(); console.log("printtasinkurrentinlevelin"); }, 10000);
 }
 
 function fromDatabaseToObjects()
