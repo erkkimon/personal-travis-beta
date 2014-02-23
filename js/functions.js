@@ -150,8 +150,8 @@ function firstLaunch()
 	$("#second-level-view").html("<div class=tools'><span class='sub-title' style='margin-right: 4%; margin-top: 2%;'>" + string.wait + "</span></div>");
   alert(string.welcome);
 	$("#second-level-view").fadeIn("fast");
-  setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 1000);
-  setTimeout(function() { printCurrentLevel() }, 10000);
+  setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 10000);
+  setTimeout(function() { printCurrentLevel() }, 60000);
 }
 
 function fromDatabaseToObjects()
