@@ -143,6 +143,19 @@ function editWorkoutGoals()
   }
 }
 
+function firstLaunch()
+{
+  console.log("Let's see if there's a WebSQL DB");
+  openWebsqlDB();
+	$("#second-level-view").html("<div class=tools'><span class='sub-title' style='margin-right: 4%; margin-top: 2%;'>" + string.wait + "</span></div>");
+  alert(string.welcome);
+	$("#second-level-view").fadeIn("fast");
+  setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 1000);
+  setTimeout(function() { printCurrentLevel() }, 2000);
+//   setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 1000);
+//   setTimeout(function() { printCurrentLevel() }, 2000);
+}
+
 function fromDatabaseToObjects()
 {
   db.onReady(function(e) 
@@ -255,6 +268,7 @@ function initFirstLevelView()
 
 function printCurrentLevel()
 {
+	$("#second-level-view").fadeIn("fast");
 	$('#loading').css('opacity', '1.0');
 	$("#second-level-view").html
 	(
@@ -306,7 +320,6 @@ function printCurrentLevel()
     }
 	}
 	$('select').uniform();
-	$("#second-level-view").fadeIn("slow");
 	$("#loading").fadeOut("fast");
 }
 
@@ -534,14 +547,12 @@ function writeRecord(exerciseName, weight, reps, exclude)
 $(document).ready(function() 
 {
 	$(".live-tile").liveTile();
+	localStorage.removeItem("launchCounter");
 	checkLaunchCounter();
 	initFirstLevelView();
 	if (parseInt(localStorage.getItem("launchCounter")) == 1)
 	{
-	  console.log("Let's see if there's a WebSQL DB");
-	  openWebsqlDB();
-	  setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 1000);
-	  setTimeout(function() { printCurrentLevel() }, 2000);
+	  firstLaunch();
 	}
 	suggestNextWorkout();
 	$("#loading").fadeOut("slow");

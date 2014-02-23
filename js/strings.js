@@ -76,7 +76,9 @@ if (lang == "fi") /* FINNISH */
 		weight: "paino",
 		reached: "saavutettu",
 		currentLevel: "nykytaso",
-		currentLevelInstructions: "Palaa muokkaamaan painamalla <img src='img/navi-icons/edit.png' class='navi-icon' /> päänäkymässä."
+		currentLevelInstructions: "Palaa muokkaamaan painamalla <img src='img/navi-icons/edit.png' class='navi-icon' /> päänäkymässä.",
+		welcome: "Mukavaa, että päätit aloittaa yhteistyön Personal Rainerin kanssa! Aloitetaan määrittämällä sinulle sopivat painot. Jos et tiedä tasoasi, voit tallentaa oletuspainot ja säätää ne kohdalleen myöhemmin, jos ne tuntuvat liian kevyiltä tai painavilta.",
+		wait: "Odota hetki..."
 	}
 }
 else /* ENGLISH */
@@ -121,6 +123,8 @@ else /* ENGLISH */
 		weight: "weight",
 		reached: "reached",
 		currentLevel: "current level",
-		currentLevelInstructions: "Press <img src='img/navi-icons/edit.png' class='navi-icon' /> in main view to come back."
+		currentLevelInstructions: "Press <img src='img/navi-icons/edit.png' class='navi-icon' /> in main view to come back.",
+		welcome: "It's wonderful that you decided to make friends with Personal Travis. Let's start by finding out, what is your level right now. If you are unsure, you can save the default values and get back later.",
+		wait: "Wait, please..."
 	}
 }
