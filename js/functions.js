@@ -546,7 +546,7 @@ function writeRecord(exerciseName, weight, reps, exclude)
 $(document).ready(function() 
 {
 	$(".live-tile").liveTile();
-	// localStorage.removeItem("launchCounter"); // for debugging
+	//localStorage.removeItem("launchCounter"); // for debugging
 	checkLaunchCounter();
 	initFirstLevelView();
 	if (parseInt(localStorage.getItem("launchCounter")) == 1)

@@ -31,7 +31,7 @@ if (!lang && navigator)
 	lang = lang.substr(0, 2);
 }
 
-//lang = "fi";
+lang = "fi";
 var string;
 
 if (lang == "fi") /* FINNISH */
@@ -69,15 +69,15 @@ if (lang == "fi") /* FINNISH */
 		powerclean: "rinnalleveto",
 
 		/* general UI-related strings */
-		personalTravis: "personal raineri",
+		personalTravis: "personal <b>raineri</b>",
 		nextWorkout: "seuraava treeni",
 		goals: "haasteet",
 		reps: "toistot",
 		weight: "paino",
 		reached: "saavutettu",
 		currentLevel: "nykytaso",
-		currentLevelInstructions: "Palaa muokkaamaan painamalla <img src='img/navi-icons/edit.png' class='navi-icon' /> päänäkymässä.",
-		welcome: "Mukavaa, että päätit aloittaa yhteistyön Personal Rainerin kanssa! Aloitetaan määrittämällä sinulle sopivat painot. Jos et tiedä tasoasi, voit tallentaa oletuspainot ja säätää ne kohdalleen myöhemmin, jos ne tuntuvat liian kevyiltä tai painavilta.",
+		currentLevelInstructions: "Palaa muokkaamaan painamalla <img src='img/navi-icons/edit.png' class='navi-icon' /> perusnäkymässä.",
+		welcome: "Mukavaa, että päätit aloittaa valmennussuhteen Personal Rainerin kanssa! \n\nAloitetaan määrittämällä, millaisia painoja jaksat nostaa nyt. Jos et vielä tiedä, miten paljon jaksat nostaa, voit tallentaa oletusarvot ja palata myöhemmin muokkaustilaan painamalla kynäikonia äplikeissönin perusnäkymässä. \n\nPersonal Raineri on beta- eli testausvaiheessa, joten ohjelmaan saatetaan tehdä härskejäkin muutoksia, jotka voivat aiheuttaa mm. tietojen katoamista.",
 		wait: "Odota hetki..."
 	}
 }
@@ -116,7 +116,7 @@ else /* ENGLISH */
 		powerclean: "power clean",
 
 		/* general UI-related strings */
-		personalTravis: "personal travis",
+		personalTravis: "personal <b>travis</b>",
 		nextWorkout: "next workout",
 		goals: "goals",
 		reps: "reps",
@@ -124,7 +124,7 @@ else /* ENGLISH */
 		reached: "reached",
 		currentLevel: "current level",
 		currentLevelInstructions: "Press <img src='img/navi-icons/edit.png' class='navi-icon' /> in main view to come back.",
-		welcome: "It's wonderful that you decided to make friends with Personal Travis. Let's start by finding out, what is your level right now. If you are unsure, you can save the default values and get back later.",
+		welcome: "Great that you decided to make friends with Personal Travis. \n\nLet's find out your level at the moment. If you are unsure about the weights, you can simply save the default values and come back later by clicking the pen icon in the home view of the application. \n\nPersonal Travis is still in beta stage, which means the possibility of major changes in the app. Unfortunately, this might cause e.g. data loss.",
 		wait: "Wait, please..."
 	}
 }
