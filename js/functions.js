@@ -151,9 +151,7 @@ function firstLaunch()
   alert(string.welcome);
 	$("#second-level-view").fadeIn("fast");
   setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 1000);
-  setTimeout(function() { printCurrentLevel() }, 2000);
-//   setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 1000);
-//   setTimeout(function() { printCurrentLevel() }, 2000);
+  setTimeout(function() { printCurrentLevel() }, 10000);
 }
 
 function fromDatabaseToObjects()
@@ -262,7 +260,6 @@ function initFirstLevelView()
     exercises[i].updateAdjusted(false);
   }
   suggestNextWorkout();
-  //setTimeout(function() { fromDatabaseToObjects(); console.log("Data read from database to objects"); }, 500);
   fromDatabaseToObjects(); 
   console.log("Data read from database to objects");
 }
