@@ -151,7 +151,7 @@ function firstLaunch()
   alert(string.welcome);
 	$("#second-level-view").fadeIn("fast");
   //setTimeout(function() { ifWebSqlDBExists(readFromWebsqlToObjects()); }, 1000);
-  setTimeout(function() { printCurrentLevel() }, 5000);
+  setTimeout(function() { printCurrentLevel() }, 10000);
 }
 
 function fromDatabaseToObjects()
