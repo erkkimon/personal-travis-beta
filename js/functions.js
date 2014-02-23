@@ -255,6 +255,7 @@ function goalToUI(exerciseName, newGoal)
 function initFirstLevelView()
 {
   $("#second-level-view").fadeOut("slow");
+  $(".sub-title").html(string.nextWorkout);
   for (var i in exercises) 
   {
     exercises[i].updateReached(false);
@@ -268,6 +269,7 @@ function initFirstLevelView()
 
 function printCurrentLevel()
 {
+	$(".sub-title").html(string.wait);
 	$("#second-level-view").fadeIn("fast");
 	$('#loading').css('opacity', '1.0');
 	$("#second-level-view").html
@@ -547,7 +549,7 @@ function writeRecord(exerciseName, weight, reps, exclude)
 $(document).ready(function() 
 {
 	$(".live-tile").liveTile();
-	localStorage.removeItem("launchCounter");
+	// localStorage.removeItem("launchCounter"); // for debugging
 	checkLaunchCounter();
 	initFirstLevelView();
 	if (parseInt(localStorage.getItem("launchCounter")) == 1)
