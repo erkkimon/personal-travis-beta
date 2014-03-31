@@ -134,12 +134,20 @@ function editWorkoutGoals()
     editMode = true;
     $("#edit, .goal-adjuster").addClass("suggested");
     $("#remember").removeClass("suggested");
+    for (var i in exercises)
+    {
+      goalPlus(exercises[i]);
+    }
   }
   else if (editMode == true)
   {
     editMode = false;
     $("#edit, .goal-adjuster").removeClass("suggested");
     $("#remember").addClass("suggested");
+    for (var i in exercises)
+    {
+      goalPlus(exercises[i]);
+    }
   }
 }
 
