@@ -144,10 +144,6 @@ function editWorkoutGoals()
     editMode = false;
     $("#edit, .goal-adjuster").removeClass("suggested");
     $("#remember").addClass("suggested");
-    for (var i in exercises)
-    {
-      goalPlus(exercises[i]);
-    }
   }
 }
 
