@@ -29,6 +29,8 @@
 
   <gap:splash src="img/splash.9.png" />
   <gap:plugin name="com.adobe.plugins.gaplugin" />
+  <gap:plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager" />
+  <gap:plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	
   <preference name="phonegap-version" value="3.1.0" />
 

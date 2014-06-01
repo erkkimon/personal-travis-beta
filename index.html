@@ -104,14 +104,40 @@
   <div id="second-level-view"></div>
   <img src="img/loading.gif" id="loading" />
   <script>
-    document.addEventListener("deviceready", onDeviceReady, false);
-    /* Google Analytics PhoneGap plugin creates the object window.plugins.gaPlugin */
+    
     var gaPlugin;
-    function onDeviceReady() 
-    {
-      /* More info about usage of gaPlugin at github.com/phonegap-build/GAPlugin */
-      gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(alert("works"), alert("doesnt work"), "UA-51549024-1", 10);
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+        alert("calling ga");
+        gaPlugin = window.plugins.gaPlugin;
+        alert("calling init")
+        gaPlugin.init(successHandler, errorHandler, "UA-51549024-1", 1);
+        gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, "index.html");
+        gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "Button", "Click", "event only", 1);
+        gaPlugin.exit(nativePluginResultHandler, nativePluginErrorHandler);
     }
+
+    function successHandler()
+    {
+        alert("init success");
+    }
+
+    function errorHandler()
+    {
+        alert("init failed");
+    }
+
+    function nativePluginResultHandler()
+    {
+        alert("tracking success");
+    }
+
+    function nativePluginErrorHandler()
+    {
+        alert("tracking failed");
+    }
+
   </script>
 </body>
