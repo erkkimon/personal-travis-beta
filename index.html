@@ -104,6 +104,7 @@
   <div id="second-level-view"></div>
   <img src="img/loading.gif" id="loading" />
   <script>
+    document.addEventListener("deviceready", onDeviceReady, false);
     /* Google Analytics PhoneGap plugin creates the object window.plugins.gaPlugin */
     var gaPlugin;
     function onDeviceReady() 
