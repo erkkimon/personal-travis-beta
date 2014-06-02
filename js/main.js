@@ -4,9 +4,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() 
 {
-  // alert("calling ga");
   gaPlugin = window.plugins.gaPlugin;
-  // alert("calling init");
   gaPlugin.init(successHandler, errorHandler, "UA-51549024-1", 1);
   gaPlugin.trackPage(nativePluginResultHandler, nativePluginErrorHandler, "index.html");
   gaPlugin.exit(nativePluginResultHandler, nativePluginErrorHandler);
