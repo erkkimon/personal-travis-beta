@@ -540,7 +540,10 @@ function writeRecord(exerciseName, weight, reps, exclude)
   var currMonth = ('0'+(d.getMonth()+1)).slice(-2);
   var currYear = d.getFullYear();
   var now = currYear +"-"+ currMonth +"-"+ currDay;
-	db.put(exerciseName, {weight: weight, reps: reps, exclude: exclude}, now);
+  db.put(exerciseName, {weight: weight, reps: reps, exclude: exclude}, now);
+  // localStorage preparation for migration
+  localStorageObject = {weight: weight, reps: reps}
+  localStorage.setItem("Goals-" + exerciseName, JSON.stringify(localStorageObject));
 }
 
 ///////////////////
